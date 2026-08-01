@@ -1,0 +1,83 @@
+<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white py-8 px-4 shadow sm:rounded-2xl sm:px-10 border border-gray-100">
+      
+      <div *ngIf="loading" class="text-center py-6">
+        <div class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-indigo-600 border-r-transparent alignment-center"></div>
+        <p class="mt-4 text-sm font-medium text-gray-600">Verificando el estado de tu pago con Wompi...</p>
+      </div>
+
+      <div *ngIf="!loading && error" class="text-center py-6">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+          </svg>
+        </div>
+        <h3 class="mt-4 text-lg font-bold text-gray-900">Hubo un problema</h3>
+        <p class="mt-2 text-sm text-gray-500">No pudimos comprobar los detalles de la compra. Si el cobro se realizó, tu plan se activará en unos minutos automáticamente.</p>
+        <button routerLink="/dashboard" class="mt-6 w-full bg-gray-800 text-white py-2.5 px-4 rounded-xl text-sm font-semibold hover:bg-gray-700 transition-colors">
+          Ir al Panel Principal
+        </button>
+      </div>
+
+      <div *ngIf="!loading && !error && orderSummary">
+        
+        <div class="text-center">
+          <div *ngIf="orderSummary.status === 'APPROVED'" class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
+            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+          </div>
+          <div *ngIf="orderSummary.status === 'PENDING'" class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-yellow-100 text-yellow-600">
+            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+
+          <h2 class="mt-4 text-2xl font-extrabold text-gray-900">
+            {{ orderSummary.status === 'APPROVED' ? '¡Pago Confirmado!' : 'Pago en Procesamiento' }}
+          </h2>
+          <p class="mt-2 text-sm text-gray-500">
+            {{ orderSummary.status === 'APPROVED' ? 'Tu cuenta corporativa ha sido actualizada con éxito.' : 'Wompi está validando los fondos. Tu plan se actualizará pronto.' }}
+          </p>
+        </div>
+
+        <div class="mt-8 border-t border-gray-100 pt-6 space-y-4">
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-500">Organización</span>
+            <span class="font-semibold text-gray-900">{{ orderSummary.organizationName }}</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-500">Plan Adquirido</span>
+            <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 uppercase">
+              {{ orderSummary.targetPlan.replace('_', ' ') }}
+            </span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-500">Referencia de Pago</span>
+            <span class="font-mono text-gray-700 text-xs">{{ orderSummary.reference }}</span>
+          </div>
+          <div *ngIf="transactionIdWompi" class="flex justify-between text-sm">
+            <span class="text-gray-500">ID Transacción Wompi</span>
+            <span class="font-mono text-gray-400 text-xs">{{ transactionIdWompi }}</span>
+          </div>
+          
+          <div class="border-t border-gray-100 pt-4 flex justify-between items-baseline">
+            <span class="text-base font-medium text-gray-900">Total abonado</span>
+            <span class="text-2xl font-extrabold text-indigo-600">
+              {{ formatCurrency(orderSummary.amountInCents) }}
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <button routerLink="/dashboard" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-xl text-sm font-semibold hover:bg-indigo-700 shadow-sm transition-colors text-center block">
+            Comenzar a usar TempMail Pro
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

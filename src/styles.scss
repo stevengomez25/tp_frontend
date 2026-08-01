@@ -1,0 +1,46 @@
+/* Estilos globales */
+* {
+  // Aplicamos una transición base a todos los elementos
+  // 'all' cubre color, background-color, transform, etc.
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); // El estándar de suavidad
+  transition-duration: 200ms; // 200ms a 300ms es el "sweet spot" de UI profesional
+}
+
+/* Opcional: Evitar que afecte a elementos que necesitan ser instantáneos */
+img, canvas, video {
+  transition: none !important;
+}
+
+/* En src/styles.scss */
+.dynamic-chip {
+  background-color: #dbeafe !important;
+  color: #1e40af !important;
+  padding: 2px 8px !important;
+  border-radius: 6px !important;
+  border: 1px solid #bfdbfe !important;
+  font-weight: 700 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  margin: 0 4px !important;
+  user-select: none !important;
+  font-size: 14px !important;
+}
+
+/* En styles.scss */
+.dynamic-chip-inline {
+  display: inline; // Se comporta como texto normal
+  padding: 0 2px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  
+  // Evitamos que el navegador le ponga bordes feos al hacerle clic
+  &:focus {
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  // Si el usuario borra las llaves, el estilo debería persistir 
+  // mientras el span exista, pero tu lógica de detección 
+  // simplemente no lo encontrará si no tiene las {{ }}
+}

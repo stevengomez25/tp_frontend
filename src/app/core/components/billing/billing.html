@@ -1,0 +1,159 @@
+<div class="min-h-screen bg-gray-50/50 py-16 px-4 sm:px-6 lg:px-8 font-sans">
+  <div class="max-w-7xl mx-auto">
+    
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+        Planes y Suscripciones para 
+        <span class="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-emerald-600">TempMail Pro</span>
+      </h2>
+      <p class="mt-5 text-xl text-gray-500">
+        Escala tu consistencia de marca y productividad. Elige el plan perfecto para ti o tu equipo de trabajo.
+      </p>
+
+      <div class="mt-10 flex justify-center items-center gap-4 bg-white p-2 rounded-full border border-gray-200 shadow-sm">
+        <span class="text-sm font-semibold px-4 cursor-pointer transition-colors" 
+              [ngClass]="!isYearly ? 'text-indigo-600' : 'text-gray-500 hover:text-gray-700'"
+              (click)="isYearly = false">
+          Mensual
+        </span>
+        
+        <button type="button" 
+                (click)="isYearly = !isYearly"
+                [ngClass]="isYearly ? 'bg-emerald-500' : 'bg-indigo-500'"
+                class="relative inline-flex h-7 w-14 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-300 ease-in-out focus:outline-none"
+                role="switch" aria-checked="false">
+          <span aria-hidden="true" 
+                [ngClass]="isYearly ? 'translate-x-7' : 'translate-x-0'"
+                class="pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-md ring-0 transition duration-300 ease-in-out">
+          </span>
+        </button>
+
+        <span class="text-sm font-semibold flex items-center gap-2 px-4 cursor-pointer transition-colors" 
+              [ngClass]="isYearly ? 'text-emerald-600' : 'text-gray-500 hover:text-gray-700'"
+              (click)="isYearly = true">
+          Anual 
+          <span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-bold text-green-700 animate-pulse">
+            Ahorra 20%
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <div class="mt-24">
+      <div class="text-center mb-12">
+        <h3 class="text-2xl font-bold text-gray-900 inline-flex items-center gap-3 border-b-2 border-indigo-100 pb-2">
+          <span class="text-3xl">👤</span> Clientes Independientes & Solopreneurs
+        </h3>
+      </div>
+      
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto items-center">
+        <ng-container *ngFor="let plan of planes">
+          <div *ngIf="plan.type === 'B2C'" 
+               [ngClass]="plan.badge ? 'ring-2 ring-indigo-600 shadow-2xl lg:scale-105 z-10 bg-white' : 'ring-1 ring-gray-200 shadow-md bg-white/80 hover:bg-white hover:shadow-lg'"
+               class="relative rounded-3xl p-8 flex flex-col justify-between transition-all duration-300">
+            
+            <div *ngIf="plan.badge" class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 inline-flex items-center rounded-full bg-linear-to-r from-indigo-600 to-indigo-500 px-5 py-1.5 text-xs font-bold text-white uppercase tracking-widest shadow-lg">
+              {{ plan.badge }}
+            </div>
+
+            <div>
+              <h4 class="text-2xl font-bold text-gray-900">{{ plan.name }}</h4>
+              <p class="mt-3 text-sm text-gray-500 min-h-12 leading-relaxed">{{ plan.description }}</p>
+              
+              <div class="mt-6 flex items-baseline text-gray-900">
+                <span class="text-5xl font-extrabold tracking-tight">
+                  {{ plan.monthlyPrice === 0 ? 'Gratis' : '$' + (getPlanPrice(plan.monthlyPrice) | number) }}
+                </span>
+                <span *ngIf="plan.monthlyPrice > 0" class="ml-2 text-lg font-medium text-gray-500">/mes</span>
+              </div>
+              <p class="mt-1 min-h-6">
+                <span *ngIf="isYearly && plan.monthlyPrice > 0" class="text-sm text-emerald-600 font-semibold">Facturado anualmente</span>
+              </p>
+
+              <div class="mt-8 pt-6 border-t border-gray-100">
+                <p class="text-sm font-bold mb-4" [ngClass]="plan.badge || plan.monthlyPrice > 0 ? 'text-indigo-600' : 'text-gray-900'">
+                  {{ plan.monthlyPrice > 0 ? 'Todo lo del plan anterior, además:' : 'Características incluidas:' }}
+                </p>
+                <ul role="list" class="space-y-4">
+                  <li *ngFor="let feature of plan.features" class="flex items-start">
+                    <div class="shrink-0 rounded-full bg-indigo-50 p-1">
+                      <svg class="h-4 w-4 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                    <p class="ml-3 text-sm text-gray-700 font-medium">{{ feature }}</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <button (click)="selectPlan(plan.id)"
+                    [ngClass]="plan.id === 'FREE' ? 'bg-gray-50 border border-gray-200 text-gray-700 hover:bg-gray-100' : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-md hover:shadow-lg'"
+                    class="mt-10 block w-full py-3.5 px-6 rounded-2xl text-center text-sm font-bold transition-all duration-200">
+              {{ plan.id === 'FREE' ? 'Tu Plan Actual' : 'Seleccionar ' + plan.name }}
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="mt-32 mb-16">
+      <div class="text-center mb-12">
+        <h3 class="text-2xl font-bold text-gray-900 inline-flex items-center gap-3 border-b-2 border-emerald-100 pb-2">
+          <span class="text-3xl">🏢</span> Planes Corporativos & Equipos
+        </h3>
+      </div>
+
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto items-center">
+        <ng-container *ngFor="let plan of planes">
+          <div *ngIf="plan.type === 'B2B'" 
+               [ngClass]="plan.badge ? 'ring-2 ring-emerald-500 shadow-2xl lg:scale-105 z-10 bg-white' : 'ring-1 ring-gray-200 shadow-md bg-white/80 hover:bg-white hover:shadow-lg'"
+               class="relative rounded-3xl p-8 flex flex-col justify-between transition-all duration-300">
+            
+            <div *ngIf="plan.badge" class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 inline-flex items-center rounded-full bg-linear-to-r from-emerald-500 to-teal-500 px-5 py-1.5 text-xs font-bold text-white uppercase tracking-widest shadow-lg">
+              {{ plan.badge }}
+            </div>
+
+            <div>
+              <h4 class="text-2xl font-bold text-gray-900">{{ plan.name }}</h4>
+              <p class="mt-3 text-sm text-gray-500 min-h-12 leading-relaxed">{{ plan.description }}</p>
+              
+              <div class="mt-6 flex items-baseline text-gray-900">
+                <span class="text-5xl font-extrabold tracking-tight">
+                  ${{ getPlanPrice(plan.monthlyPrice) | number }}
+                </span>
+                <span class="ml-2 text-lg font-medium text-gray-500">/mes</span>
+              </div>
+              <p class="mt-1 min-h-6">
+                <span *ngIf="isYearly" class="text-sm text-emerald-600 font-semibold">Facturado anualmente</span>
+              </p>
+
+              <div class="mt-8 pt-6 border-t border-gray-100">
+                <p class="text-sm font-bold mb-4" [ngClass]="plan.badge ? 'text-emerald-600' : 'text-gray-900'">
+                  {{ plan.badge ? 'Todo lo del plan de equipos, además:' : 'Características base corporativas:' }}
+                </p>
+                <ul role="list" class="space-y-4">
+                  <li *ngFor="let feature of plan.features" class="flex items-start">
+                    <div class="shrink-0 rounded-full bg-emerald-50 p-1">
+                      <svg class="h-4 w-4 text-emerald-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                    <p class="ml-3 text-sm text-gray-700 font-medium">{{ feature }}</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <button (click)="selectPlan(plan.id)"
+                    [ngClass]="plan.badge ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md' : 'bg-gray-800 hover:bg-gray-900 text-white'"
+                    class="mt-10 block w-full py-3.5 px-6 rounded-2xl text-center text-sm font-bold transition-all duration-200">
+              Adquirir {{ plan.name }}
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+  </div>
+</div>

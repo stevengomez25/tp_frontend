@@ -1,0 +1,212 @@
+{
+  "home": {
+    "seo": {
+      "title": "TempMail Pro | Corporate Communication Standardization",
+      "description": "Optimize your company's email writing. Reduce manual time by 40% with our template extension for Gmail and Outlook."
+    },
+    "faq_section_title": "Frequently Asked Questions",
+    "faqs": [
+      {
+        "q": "How does it integrate with Gmail and Outlook?",
+        "a": "Our Chrome extension automatically detects draft fields using secure DOM manipulation, allowing you to inject templates with a single click."
+      },
+      {
+        "q": "Is it secure for corporate data?",
+        "a": "Absolutely. We implement multi-tenant architecture with data isolation, JWT security, and in-transit encryption."
+      },
+      {
+        "q": "Can I customize templates for different teams?",
+        "a": "Yes, the SaaS system allows creating folders by departments (Sales, Support, HR) with granular permissions."
+      }
+    ],
+    "hero": {
+      "title": "Reduce writing time by",
+      "highlight": "40%",
+      "subtitle": "Standardize your company's communication with TempMail Pro. A smart template repository injected directly into your workflow.",
+      "cta_primary": "Get Started Free",
+      "cta_secondary": "Schedule Demo"
+    },
+    "mockup": {
+      "extension_label": "Chrome Extension",
+      "label_name": "Customer Name",
+      "label_company": "Company",
+      "btn_inject": "Inject into Gmail",
+      "email_header": "New Message",
+      "email_to": "To",
+      "email_subject_label": "Subject",
+      "email_subject": "Welcome to",
+      "email_body": "It's a pleasure to greet you on behalf of",
+      "badge": "40% FASTER"
+    },
+    "trust": { "label": "Optimized for leading platforms" },
+    "pain": {
+      "title": "Why is your team still losing hours to manual writing?",
+      "item1": "Inconsistency in brand tone and style.",
+      "item2": "Technical data errors from copy-pasting.",
+      "item3": "Slow onboarding for new employees."
+    },
+    "solution": {
+      "title": "The TempMail Pro Solution",
+      "text": "We centralize your company's knowledge in the cloud, letting any team member respond like an expert in seconds.",
+      "stat1": "Standardized",
+      "stat2": "Copy-Paste"
+    },
+    "tech": {
+      "title": "World-Class Architecture",
+      "card1_title": "True Omnichannel",
+      "card1_text": "Access templates from the web dashboard or inject them directly into the mail client.",
+      "card2_title": "Native Injection",
+      "card2_text": "Our extension manipulates the DOM to respect HTML formats, signatures, and attachments.",
+      "card3_title": "Regional Scalability",
+      "card3_text": "Manage thousands of users with guaranteed data isolation via PostgreSQL."
+    },
+    "quotes": {
+      "main": "We reduced our support response time from 5 minutes to just 45 seconds.",
+      "author": "Operations Director, TechCorp Latam",
+      "stat1": "Time Savings",
+      "stat2": "Processed Emails"
+    },
+    "footer_cta": {
+      "title": "Ready to standardize your business?",
+      "btn": "Start Now for Free"
+    }
+  },
+  "nav": {
+    "slogan": "Smart Standardization",
+    "login": "Login",
+    "signup": "Get Started",
+    "profile": "Profile",
+    "help": "Help",
+    "logout": "Sign Out",
+    "links": [
+      { "name": "Home", "path": "/" },
+      { "name": "Services", "path": "/servicios" },
+      { "name": "Pricing", "path": "/billing" },
+      { "name": "Support", "path": "/soporte" }
+    ]
+  },
+  "footer": {
+    "mission": "Standardizing corporate communication for regional SMEs. Reduce turnaround times and professionalize your workflow.",
+    "rights": "All rights reserved",
+    "status": "Operating Systems",
+    "sections": [
+      {
+        "title": "Product",
+        "links": [
+          { "name": "Features", "path": "/servicios" },
+          { "name": "Pricing", "path": "/planes" },
+          { "name": "Chrome Extension", "path": "#" },
+          { "name": "Documentation", "path": "/docs" }
+        ]
+      },
+      {
+        "title": "Company",
+        "links": [
+          { "name": "About us", "path": "#" },
+          { "name": "Support", "path": "/soporte" },
+          { "name": "Contact", "path": "#" }
+        ]
+      },
+      {
+        "title": "Legal",
+        "links": [
+          { "name": "Privacy", "path": "#" },
+          { "name": "Terms", "path": "#" },
+          { "name": "Security", "path": "#" }
+        ]
+      }
+    ]
+  },
+  "login": {
+    "title": "Welcome back",
+    "subtitle": "Don't have an account?",
+    "signup_link": "Sign up for free",
+    "email_label": "Email address",
+    "password_label": "Password",
+    "remember": "Remember me",
+    "forgot": "Forgot your password?",
+    "btn_submit": "Sign in"
+  },
+  "signup": {
+    "title": "Create your free account",
+    "subtitle": "Already have an account?",
+    "login_link": "Sign in here",
+    "name_label": "Full name",
+    "email_label": "Work email",
+    "password_label": "Password (min. 8 characters)",
+    "terms_text": "I agree to the",
+    "terms_link": "Terms and conditions",
+    "btn_submit": "Create my expert account"
+  },
+  "dashboard": {
+    "sync":"Loading your information from TempMail Pro servers...",
+    "welcome": "Hello again",
+    "today_summary": "This is what is going on in your account today.",
+    "plan_label": "Current Plan",
+    "upgrade_btn": "Upgrade Plan",
+    "user_plan":"Free Plan",
+    "menu": {
+      "home": "Home",
+      "templates": "My templates",
+      "folders": "Folders"
+    },
+    "stats": {
+      "total":"Used templates",
+      "slots": "Used slots",
+      "folders": "Active Folders",
+      "usage": "Monthly inyections"
+    },
+    "recent_folders": "Recent Folders",
+    "new_folder": "New Folder"
+  },
+  "templates": {
+    "template":"Template",
+    "templates":"Templates",
+    "see_template":"View templates",
+    "title": "My Templates",
+    "subtitle": "Manage and Organize your enterprise answers.",
+    "btn_new": "New",
+    "new_template": "New Template",
+    "new_folder": "New Folder",
+    "search_placeholder": "Search by name...",
+    "loading":"Loading corporate templates...",
+    "subject":"Subject",
+    "stats": {
+      "total": "Total Templates",
+      "folders": "Created Folders",
+      "slots": "Usage Plan"
+    }
+  },
+  "editor": {
+    "title": "Create New Template",
+    "new": "New",
+    "btn_save": "Save Template",
+    "btn_cancel": "Cancel",
+    "settings_title": "Template Settings",
+    "label_name": "Intern Name",
+    "placeholder_name": "Ex: Commerce Offer V1",
+    "label_folder": "Destination Folder",
+    "select_folder": "Select a Folder",
+    "label_subject": "Subject",
+    "placeholder_subject": "We have an offer for you!",
+    "placeholder_content": "Write your body email here...",
+    "dynamic_fields": "Dynamic fields",
+    "label_dynamic": "Field Value",
+    "btn_process": "Process and Copy",
+    "add_field": "Add dynamic field"
+  },
+  "folders": {
+    "title":"Folders",
+    "subtitle":"Found your folders here",
+    "btn_new": "New Folder",
+    "search_placeholder":"Search by name...",
+    "loading":"Loading shared folders...",
+    "modal": {
+      "title":"NEW FOLDER",
+      "input_label": "New folder name",
+      "placeholder": "Enter the folder's name",
+      "btn_cancel": "Cancel",
+      "btn_confirm": "Confirm"
+    }
+  }
+}

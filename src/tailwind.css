@@ -1,0 +1,15 @@
+/* src/tailwind.css */
+@import 'tailwindcss';
+
+@theme {
+  --color-brand-primary: #2563eb;
+  --color-brand-secondary: #0f172a;
+  --transition-delay: 0s;
+  --transition-duration: 250ms;
+  --transition-timing-function: ease-in-out;
+}
+
+a, button, input, select, textarea {
+  @apply transition-all duration-200 ease-in-out;
+}
+

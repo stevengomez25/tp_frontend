@@ -1,0 +1,536 @@
+
+==================================================
+ARCHIVO: new-template.html
+==================================================
+
+<div class="flex min-h-screen bg-slate-50">
+    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col sticky top-0 h-screen">
+        <div class="p-6 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+                <img src="slogan.png" alt="Logo" class="w-40 h-25">
+            </div>
+        </div>
+        <nav class="flex-1 p-4 space-y-2">
+            <a routerLink="/dashboard"
+                class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition-all">
+                <i class="fa-solid fa-house"></i> {{ 'dashboard.menu.home' | transloco }}
+            </a>
+            <a routerLink="/my-templates"
+                class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-blue-600 bg-blue-50 rounded-xl">
+                <i class="fa-solid fa-file-lines"></i> {{ 'dashboard.menu.templates' | transloco }}
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-8">
+        <header class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">{{ 'editor.title' | transloco }}</h1>
+                <nav class="flex text-xs text-slate-400 gap-2 mt-1">
+                    <span>{{ 'dashboard.menu.templates' | transloco }}</span> / <span>{{ 'editor.new' | transloco }}</span>
+                </nav>
+            </div>
+            <div class="flex gap-3">
+                <button routerLink="/my-templates"
+                    class="px-6 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-200 rounded-xl transition-all">
+                    {{ 'editor.btn_cancel' | transloco }}
+                </button>
+                <button (click)="saveTemplate()"
+                    class="px-6 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-95">
+                    {{ 'editor.btn_save' | transloco }}
+                </button>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="space-y-6">
+                
+                <div class="flex flex-col gap-1">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Carpeta Organizacional</label>
+                    <select [(ngModel)]="templateData.folderId" name="folderId"
+                        class="bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none shadow-sm transition-all hover:border-blue-300">
+                        <option value="" disabled selected>Selecciona una carpeta</option>
+                        @for (folder of folders(); track folder.id) {
+                            <option [value]="folder.id">{{ folder.name }}</option>  
+                        }
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Nombre de tu plantilla</label>
+                    <input type="text" [(ngModel)]="templateData.name" name="name"
+                        placeholder="Ej: Plantilla de Bienvenida"
+                        class="bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none shadow-sm transition-all hover:border-blue-300">
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Asunto del correo</label>
+                    <input type="text" [(ngModel)]="templateData.subject" name="subject"
+                        placeholder="Ej: Seguimiento propuesta comercial..."
+                        class="bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none shadow-sm transition-all hover:border-blue-300">
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Idioma</label>
+                    <select [(ngModel)]="templateData.lang" name="lang"
+                        class="bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none shadow-sm transition-all hover:border-blue-300">
+                        <option value="ES">Español (ES)</option>
+                        <option value="EN">Inglés (EN)</option>
+                    </select>
+                </div>
+
+                <button (click)="saveTemplate()" [disabled]="isSaving"
+                    class="w-full bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all shadow-md disabled:opacity-50 flex justify-center items-center gap-2">
+                    <i class="fa-solid fa-save" *ngIf="!isSaving"></i>
+                    {{ isSaving ? 'Guardando...' : 'Guardar Plantilla' }}
+                </button>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-50 pb-3">
+                        <h3 class="font-bold text-slate-900">{{ 'editor.dynamic_fields' | transloco }}</h3>
+                        <button (click)="updateDynamicFields()"
+                            class="text-blue-600 text-[10px] font-bold uppercase hover:underline">
+                            <i class="fa-solid fa-sync-alt mr-1"></i>
+                        </button>
+                    </div>
+
+                    @if (dynamicFields.length === 0) {
+                        <p class="text-[11px] text-slate-400 italic">
+                            Escribe <code class="bg-slate-100 px-1 rounded">{{ '{{campo}}' }}</code> en el editor para generar un input.
+                        </p>
+                    } @else {
+                        <div class="space-y-3">
+                            @for (field of dynamicFields; track field) {
+                                <div>
+                                    <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 block">{{ field }}</label>
+                                    <input type="text" [(ngModel)]="dynamicValues[field]"
+                                        [placeholder]="'Escribir ' + field + '...'"
+                                        class="w-full bg-blue-50/50 border border-blue-100 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                                </div>
+                            }
+                        </div>
+
+                        <button (click)="copyProcessedTemplate()"
+                            class="w-full mt-4 py-3 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-copy"></i> Copiar Final (Procesado)
+                        </button>
+                    }
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 space-y-4">
+                <div class="bg-white p-2 rounded-xl border border-slate-200 shadow-sm flex flex-wrap gap-1 items-center sticky top-4 z-10">
+                    <div class="flex bg-slate-50 rounded-lg p-1 gap-1">
+                        <button (click)="execCommand('bold')" class="p-2 w-10 h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all active:scale-90" title="Bold"><i class="fa-solid fa-bold"></i></button>
+                        <button (click)="execCommand('italic')" class="p-2 w-10 h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all active:scale-90" title="Italic"><i class="fa-solid fa-italic"></i></button>
+                        <button (click)="execCommand('underline')" class="p-2 w-10 h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all active:scale-90" title="Underline"><i class="fa-solid fa-underline"></i></button>
+                    </div>
+
+                    <div class="w-px h-6 bg-slate-200 mx-1"></div>
+
+                    <div class="flex bg-slate-50 rounded-lg p-1 gap-1">
+                        <button (click)="execCommand('justifyLeft')" class="p-2 w-10 h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all"><i class="fa-solid fa-align-left"></i></button>
+                        <button (click)="execCommand('justifyCenter')" class="p-2 w-10 h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all"><i class="fa-solid fa-align-center"></i></button>
+                    </div>
+
+                    <div class="w-px h-6 bg-slate-200 mx-1"></div>
+
+                    <div class="relative">
+                        <select (change)="execCommand('fontSize', $any($event.target).value)"
+                            class="appearance-none bg-slate-100 border border-slate-200 text-slate-900 font-bold text-[11px] rounded-lg pl-3 pr-8 py-2 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
+                            <option value="3" class="text-slate-900 bg-white">Normal</option>
+                            <option value="1" class="text-slate-900 bg-white">Small</option>
+                            <option value="5" class="text-slate-900 bg-white">Large</option>
+                            <option value="7" class="text-slate-900 bg-white">Extra Large</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 pointer-events-none"></i>
+                    </div>
+
+                    <div class="flex items-center bg-slate-50 rounded-lg px-2 py-1 gap-2 border border-slate-100">
+                        <i class="fa-solid fa-palette text-slate-500 text-xs"></i>
+                        <input type="color" (change)="execCommand('foreColor', $any($event.target).value)"
+                            class="w-6 h-6 p-0 border border-white rounded-full bg-transparent cursor-pointer overflow-hidden shadow-sm">
+                    </div>
+
+                    <div class="w-px h-6 bg-slate-200 mx-1"></div>
+
+                    <button (click)="execCommand('insertUnorderedList')" class="p-2 w-10 h-10 hover:bg-slate-100 rounded-lg text-slate-700 transition-colors" title="List">
+                        <i class="fa-solid fa-list-ul"></i>
+                    </button>
+                    <button (click)="execCommand('createLink', 'https://')" class="p-2 w-10 h-10 hover:bg-slate-100 rounded-lg text-slate-700 transition-colors" title="Link">
+                        <i class="fa-solid fa-link"></i>
+                    </button>
+
+                    <div class="w-px h-6 bg-slate-200 mx-1 grow"></div>
+                    <button (mousedown)="$event.preventDefault(); openVariableModal()"
+                        class="px-3 h-10 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-xs font-bold flex items-center gap-2 transition-all border border-blue-200">
+                        <i class="fa-solid fa-plus-circle"></i> {{ 'editor.add_field' | transloco }}
+                    </button>
+                </div>
+
+                <div id="editor" contenteditable="true" (input)="updateDynamicFields()"
+                    class="bg-white min-h-100 p-10 rounded-2xl border border-slate-200 shadow-inner focus:outline-none prose prose-slate max-w-none text-slate-800 ring-offset-2 focus:ring-2 focus:ring-blue-100 transition-all overflow-y-auto"
+                    [attr.placeholder]="'editor.placeholder_content' | transloco">
+
+                    <p>Hola <span class="dynamic-chip" contenteditable="false" ngNonBindable>{{name}}</span>,</p>
+                    <p>Es un placer saludarte...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+@if (showVariableModal) {
+<div class="fixed inset-0 z-100 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+    <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-slate-100 overflow-hidden animate-in zoom-in-95 duration-200">
+        <div class="p-6 border-b border-slate-50 flex justify-between items-center">
+            <h3 class="font-black text-slate-900 text-lg">Configurar Variable</h3>
+            <button (click)="showVariableModal = false" class="text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="p-8 space-y-6">
+            <div>
+                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Nombre del campo</label>
+                <input type="text" [(ngModel)]="newVariable.name" placeholder="ej: nombre_cliente"
+                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none font-bold">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Estilo</label>
+                    <div class="flex gap-2">
+                        <button (click)="newVariable.isBold = !newVariable.isBold"
+                            [class]="newVariable.isBold ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'"
+                            class="w-10 h-10 rounded-lg flex items-center justify-center transition-all">
+                            <i class="fa-solid fa-bold"></i>
+                        </button>
+                        <button (click)="newVariable.isItalic = !newVariable.isItalic"
+                            [class]="newVariable.isItalic ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'"
+                            class="w-10 h-10 rounded-lg flex items-center justify-center transition-all">
+                            <i class="fa-solid fa-italic"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Color de realce</label>
+                    <input type="color" [(ngModel)]="newVariable.color"
+                        class="w-full h-10 p-1 bg-slate-100 border border-slate-200 rounded-lg cursor-pointer">
+                </div>
+            </div>
+
+            <div class="bg-slate-50 p-4 rounded-2xl border border-dashed border-slate-200">
+                <p class="text-[10px] text-slate-400 uppercase font-black mb-2">Vista previa en editor</p>
+                <span [style.color]="newVariable.color" [style.font-weight]="newVariable.isBold ? '800' : '700'"
+                    [style.font-style]="newVariable.isItalic ? 'italic' : 'normal'" class="px-2 py-1 rounded-md"
+                    [style.background-color]="newVariable.color + '15'">
+                    {{ '' + (newVariable.name || 'variable') + '' }}
+                </span>
+            </div>
+        </div>
+
+        <div class="p-6 bg-slate-50 flex gap-3">
+            <button (click)="showVariableModal = false"
+                class="flex-1 py-3 text-sm font-bold text-slate-500 hover:bg-slate-200 rounded-xl transition-all">
+                Cancelar
+            </button>
+            <button (click)="confirmInsertion()"
+                class="flex-1 py-3 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg shadow-blue-200 transition-all">
+                Insertar Variable
+            </button>
+        </div>
+    </div>
+</div>
+}
+
+==================================================
+ARCHIVO: new-template.spec.ts
+==================================================
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { NewTemplateComponent } from './new-template';
+
+describe('NewTemplate', () => {
+  let component: NewTemplateComponent;
+  let fixture: ComponentFixture<NewTemplateComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NewTemplateComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(NewTemplateComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+==================================================
+ARCHIVO: new-template.ts
+==================================================
+
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { TranslocoModule } from '@jsverse/transloco';
+import { TemplateService } from '../../../core/services/template-sync'; // Revisa tu ruta
+
+@Component({
+  selector: 'app-new-template',
+  standalone: true,
+  imports: [CommonModule, RouterModule, FormsModule, TranslocoModule],
+  templateUrl: './new-template.html',
+})
+export class NewTemplateComponent implements OnInit {
+  private templateService = inject(TemplateService);
+  private router = inject(Router);
+
+  // Estructura limpia alineada con las necesidades de Spring Boot
+  public templateData = {
+    name: '',       // Será el 'title' en el DTO
+    folderId: '',   // Almacenará el ID UUID/Long de la carpeta seleccionada
+    subject: '',
+    content: '',
+    lang: 'ES'      // Idioma por defecto
+  };
+
+  public showVariableModal = false;
+  public newVariable = {
+    name: '',
+    isBold: false,
+    isItalic: false,
+    color: '#1e40af',
+  };
+
+  public dynamicValues: { [key: string]: string } = {};
+  public dynamicFields: string[] = [];
+  private savedRange: Range | null = null;
+
+  // Compartimos el Signal global de carpetas para que el select se llene con datos reales
+  public folders = this.templateService.folders;
+  public isSaving = false; // Estado visual de carga para deshabilitar el botón
+
+  ngOnInit(): void {
+    // Si el usuario entró directo a esta página y el state de carpetas está vacío, lo cargamos
+    if (this.folders().length === 0) {
+      this.templateService.getFoldersAndTemplates().subscribe();
+    }
+  }
+
+  openVariableModal() {
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0) {
+      this.savedRange = selection.getRangeAt(0);
+    }
+    this.newVariable = { name: '', isBold: false, isItalic: false, color: '#1e40af' };
+    this.showVariableModal = true;
+  }
+
+  confirmInsertion() {
+    if (!this.newVariable.name) return;
+
+    const span = document.createElement('span');
+    span.className = 'dynamic-chip';
+    span.contentEditable = 'false';
+    span.innerText = `{{${this.newVariable.name}}}`;
+
+    span.style.fontWeight = this.newVariable.isBold ? '800' : '700';
+    span.style.fontStyle = this.newVariable.isItalic ? 'italic' : 'normal';
+    span.style.color = this.newVariable.color;
+    span.style.backgroundColor = `${this.newVariable.color}15`;
+    span.style.borderColor = `${this.newVariable.color}40`;
+
+    if (this.savedRange) {
+      const selection = window.getSelection();
+      if (selection) {
+        selection.removeAllRanges();
+        selection.addRange(this.savedRange);
+
+        this.savedRange.deleteContents();
+        this.savedRange.insertNode(span);
+
+        this.savedRange.setStartAfter(span);
+        this.savedRange.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(this.savedRange);
+      }
+    } else {
+      const editor = document.getElementById('editor');
+      if (editor) editor.appendChild(span);
+    }
+
+    this.showVariableModal = false;
+    this.updateDynamicFields();
+    this.savedRange = null;
+  }
+
+  execCommand(command: string, value: string = '') {
+    document.execCommand(command, false, value);
+  }
+
+  updateDynamicFields() {
+    const editor = document.getElementById('editor');
+    if (!editor) return;
+
+    const content = editor.innerHTML;
+    const matches = content.match(/{{(.*?)}}/g);
+
+    if (matches) {
+      const fields = matches.map((m) => m.replace(/{{|}}/g, '').trim());
+      this.dynamicFields = [...new Set(fields)];
+
+      this.dynamicFields.forEach((field) => {
+        if (!(field in this.dynamicValues)) {
+          this.dynamicValues[field] = '';
+        }
+      });
+    } else {
+      this.dynamicFields = [];
+    }
+  }
+
+  insertChip(defaultValue: string) {
+    const fieldName = prompt('Nombre del campo (ej: cliente, fecha):', defaultValue);
+    if (!fieldName) return;
+
+    const span = document.createElement('span');
+    span.className = 'dynamic-chip';
+    span.contentEditable = 'false';
+    span.innerText = `{{${fieldName}}}`;
+
+    span.style.backgroundColor = '#dbeafe';
+    span.style.color = '#1e40af';
+    span.style.padding = '2px 8px';
+    span.style.borderRadius = '6px';
+    span.style.border = '1px solid #bfdbfe';
+    span.style.fontWeight = '700';
+    span.style.margin = '0 4px';
+    span.style.display = 'inline-flex';
+
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(span);
+      range.setStartAfter(span);
+      range.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+
+    this.updateDynamicFields();
+  }
+
+  // --- BOTÓN DE GUARDAR EN BACKEND ---
+  saveTemplate() {
+    const editableDiv = document.getElementById('editor');
+    const htmlContent = editableDiv?.innerHTML || '';
+
+    // Validaciones básicas de negocio antes de disparar HTTP
+    if (!this.templateData.name.trim() || !this.templateData.folderId || !htmlContent.trim()) {
+      alert('Por favor completa el nombre, selecciona una carpeta y escribe un contenido.');
+      return;
+    }
+
+    this.isSaving = true;
+
+    // Estructuramos el DTO exactamente como lo espera tu controlador de Java
+    const newTemplateDto = {
+      title: this.templateData.name,
+      folderId: this.templateData.folderId,
+      subject: this.templateData.subject,
+      content: htmlContent,
+      lang: this.templateData.lang
+    };
+
+    this.templateService.createTemplate(newTemplateDto).subscribe({
+      next: (response) => {
+        this.isSaving = false;
+        // Redirigimos de vuelta a la lista de plantillas corporativas con los datos frescos
+        this.router.navigate(['/my-templates']);
+      },
+      error: (err) => {
+        this.isSaving = false;
+        console.error('Error guardando la plantilla en Spring Boot:', err);
+        alert('Hubo un error al intentar guardar la plantilla. Verifica la consola.');
+      }
+    });
+  }
+
+  copyProcessedTemplate() {
+    const editor = document.getElementById('editor');
+    if (!editor) return;
+
+    let htmlContent = editor.innerHTML;
+
+    Object.keys(this.dynamicValues).forEach((key) => {
+      const value = this.dynamicValues[key] || `{{${key}}}`;
+      const regex = new RegExp(`{{${key}}}`, 'g');
+      htmlContent = htmlContent.replace(regex, value);
+    });
+
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = htmlContent;
+    const chips = tempDiv.querySelectorAll('.dynamic-chip');
+    chips.forEach((chip) => {
+      const textNode = document.createTextNode((chip as HTMLElement).innerText);
+      chip.parentNode?.replaceChild(textNode, chip);
+    });
+
+    navigator.clipboard.writeText(tempDiv.innerHTML).then(() => {
+      alert('¡Plantilla procesada copiada al portapapeles!');
+    });
+  }
+}
+
+==================================================
+ARCHIVO: unificar_codigo (1) (1).py
+==================================================
+
+import os
+
+# 1. Agregamos '.env' a la lista de cosas prohibidas
+IGNORAR = {
+    '.venv', '__pycache__', '.git', 'dist', 'build', 
+    '.pytest_cache', 'civi.spec', '.env', '.env.local'
+}
+
+def unificar_proyecto(ruta_raiz, archivo_salida):
+    with open(archivo_salida, 'w', encoding='utf-8') as outfile:
+        for raiz, dirs, archivos in os.walk(ruta_raiz):
+            # Filtrar carpetas ignoradas
+            dirs[:] = [d for d in dirs if d not in IGNORAR]
+            
+            for nombre_archivo in archivos:
+                # 2. FILTRO DE SEGURIDAD EXTRA:
+                # Si el archivo es EXACTAMENTE '.env' o empieza por '.env.', lo saltamos.
+                if nombre_archivo == '.env' or nombre_archivo.startswith('.env.'):
+                    continue
+
+                # Solo leemos los archivos de código que permitimos
+                extensiones_permitidas = ('.py', '.yml', '.yaml', '.env.example', '.sql','.ts','.html')
+                if nombre_archivo.endswith(extensiones_permitidas):
+                    ruta_completa = os.path.join(raiz, nombre_archivo)
+                    outfile.write(f"\n{'='*50}\n")
+                    outfile.write(f"ARCHIVO: {os.path.relpath(ruta_completa, ruta_raiz)}\n")
+                    outfile.write(f"{'='*50}\n\n")
+                    
+                    try:
+                        with open(ruta_completa, 'r', encoding='utf-8') as infile:
+                            outfile.write(infile.read())
+                    except Exception as e:
+                        outfile.write(f"Error al leer {nombre_archivo}: {e}")
+                    outfile.write("\n")
+
+if __name__ == "__main__":
+    unificar_proyecto('.', 'todo_mi_codigo.txt')
+    print("✅ ¡Listo! El archivo 'todo_mi_codigo.txt' se creó sin datos sensibles.")

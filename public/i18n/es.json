@@ -1,0 +1,212 @@
+{
+  "home": {
+    "seo": {
+      "title": "TempMail Pro | Estandarización de Comunicación Corporativa",
+      "description": "Optimice la redacción de correos en su empresa. Reduzca un 40% el tiempo manual con nuestra extensión de templates para Gmail y Outlook."
+    },
+    "faq_section_title": "Preguntas Frecuentes",
+    "faqs": [
+      {
+        "q": "¿Cómo se integra con Gmail y Outlook?",
+        "a": "Nuestra extensión de Chrome detecta automáticamente los campos de redacción mediante manipulación segura del DOM, permitiendo inyectar plantillas con un solo clic."
+      },
+      {
+        "q": "¿Es seguro para datos corporativos?",
+        "a": "Absolutamente. Implementamos arquitectura multi-tenant con aislamiento de datos, seguridad JWT y cifrado en tránsito."
+      },
+      {
+        "q": "¿Puedo personalizar las plantillas por equipo?",
+        "a": "Sí, el sistema permite crear carpetas por departamentos (Ventas, Soporte, RRHH) con permisos granulares."
+      }
+    ],
+    "hero": {
+      "title": "Reduzca el tiempo de redacción en un",
+      "highlight": "40%",
+      "subtitle": "Estandarice la comunicación de su empresa con TempMail Pro. Un repositorio de plantillas inteligente inyectado directamente en su flujo de trabajo.",
+      "cta_primary": "Comenzar Gratis",
+      "cta_secondary": "Agendar Demo"
+    },
+    "mockup": {
+      "extension_label": "Extensión de Chrome",
+      "label_name": "Nombre del Cliente",
+      "label_company": "Empresa",
+      "btn_inject": "Inyectar en Gmail",
+      "email_header": "Nuevo Mensaje",
+      "email_to": "Para",
+      "email_subject_label": "Asunto",
+      "email_subject": "Bienvenida a",
+      "email_body": "Es un gusto saludarte de parte de",
+      "badge": "40% MÁS RÁPIDO"
+    },
+    "trust": { "label": "Optimizado para plataformas líderes" },
+    "pain": {
+      "title": "¿Por qué su equipo sigue perdiendo horas en redacción manual?",
+      "item1": "Inconsistencia en el tono y estilo de la marca.",
+      "item2": "Errores en datos técnicos por copiar y pegar.",
+      "item3": "Lentitud en el onboarding de nuevos empleados."
+    },
+    "solution": {
+      "title": "La Solución TempMail Pro",
+      "text": "Centralizamos el conocimiento de su empresa en la nube, permitiendo que cualquier miembro del equipo responda como un experto en segundos.",
+      "stat1": "Estandarizado",
+      "stat2": "Copy-Paste"
+    },
+    "tech": {
+      "title": "Arquitectura de Clase Mundial",
+      "card1_title": "Omnicanalidad Real",
+      "card1_text": "Acceda a sus plantillas desde el dashboard web o inyéctelas directamente en el cliente de correo.",
+      "card2_title": "Inyección Nativa",
+      "card2_text": "Nuestra extensión manipula el DOM para respetar formatos HTML, firmas y adjuntos.",
+      "card3_title": "Escalabilidad Regional",
+      "card3_text": "Gestione miles de usuarios con aislamiento de datos garantizado mediante PostgreSQL."
+    },
+    "quotes": {
+      "main": "Logramos reducir el tiempo de respuesta de soporte de 5 minutos a solo 45 segundos.",
+      "author": "Director de Operaciones, TechCorp Latam",
+      "stat1": "Ahorro de Tiempo",
+      "stat2": "Mails Procesados"
+    },
+    "footer_cta": {
+      "title": "¿Listo para estandarizar su empresa?",
+      "btn": "Empezar Ahora Gratis"
+    }
+  },
+  "nav": {
+    "slogan": "Estandarización Inteligente",
+    "login": "Iniciar Sesión",
+    "signup": "Empezar ahora",
+    "profile": "Perfil",
+    "help": "Ayuda",
+    "logout": "Cerrar Sesión",
+    "links": [
+      { "name": "Inicio", "path": "/" },
+      { "name": "Servicios", "path": "/servicios" },
+      { "name": "Planes", "path": "/billing" },
+      { "name": "Soporte", "path": "/soporte" }
+    ]
+  },
+  "footer": {
+    "mission": "Estandarizando la comunicación corporativa para PYMES regionales. Reduzca tiempos y profesionalice su flujo de trabajo.",
+    "rights": "Todos los derechos reservados",
+    "status": "Sistemas Operativos",
+    "sections": [
+      {
+        "title": "Producto",
+        "links": [
+          { "name": "Funcionalidades", "path": "/servicios" },
+          { "name": "Planes y Precios", "path": "/planes" },
+          { "name": "Extensión Chrome", "path": "#" },
+          { "name": "Documentación", "path": "/docs" }
+        ]
+      },
+      {
+        "title": "Compañía",
+        "links": [
+          { "name": "Sobre nosotros", "path": "#" },
+          { "name": "Soporte", "path": "/soporte" },
+          { "name": "Contacto", "path": "#" }
+        ]
+      },
+      {
+        "title": "Legal",
+        "links": [
+          { "name": "Privacidad", "path": "#" },
+          { "name": "Términos", "path": "#" },
+          { "name": "Seguridad", "path": "#" }
+        ]
+      }
+    ]
+  },
+  "login": {
+    "title": "Bienvenido de nuevo",
+    "subtitle": "¿Aún no tienes cuenta?",
+    "signup_link": "Regístrate gratis",
+    "email_label": "Correo electrónico",
+    "password_label": "Contraseña",
+    "remember": "Recordarme",
+    "forgot": "¿Olvidaste tu contraseña?",
+    "btn_submit": "Entrar a mi cuenta"
+  },
+  "signup": {
+    "title": "Crea tu cuenta gratuita",
+    "subtitle": "¿Ya tienes una cuenta?",
+    "login_link": "Inicia sesión aquí",
+    "name_label": "Nombre completo",
+    "email_label": "Correo corporativo",
+    "password_label": "Contraseña (mín. 8 caracteres)",
+    "terms_text": "Acepto los",
+    "terms_link": "Términos y condiciones",
+    "btn_submit": "Crear mi cuenta de experto"
+  },
+  "dashboard": {
+    "sync":"Sincronizando con el servidor de TempMail Pro...",
+    "welcome": "¡Hola de nuevo",
+    "today_summary": "Esto es lo que está pasando en tu cuenta hoy.",
+    "plan_label": "Plan Actual",
+    "user_plan":"Plan Gratuito",
+    "upgrade_btn": "Mejorar Plan",
+    "menu": {
+      "home": "Inicio",
+      "templates": "Mis Plantillas",
+      "folders": "Carpetas"
+    },
+    "stats": {
+      "total":"Plantillas Totales",
+      "slots": "Slots Utilizados",
+      "folders": "Carpetas Activas",
+      "usage": "Inyecciones Mes"
+    },
+    "recent_folders": "Carpetas Recientes",
+    "new_folder": "Nueva Carpeta"
+  },
+  "templates": {
+    "template":"Plantilla",
+    "templates":"Plantillas", 
+    "see_template":"Ver plantillas",
+    "title": "Mis Plantillas",
+    "subtitle": "Gestiona y organiza tus respuestas corporativas.",
+    "btn_new": "Nuevo",
+    "new_template": "Nueva Plantilla",
+    "new_folder": "Nueva Carpeta",
+    "loading":"Cargando plantillas corporativas...",
+    "search_placeholder": "Buscar por nombre...",
+    "subject":"Asunto",
+    "stats": {
+      "total": "Plantillas Totales",
+      "folders": "Carpetas Creadas",
+      "slots": "Capacidad de Plan"
+    }
+  },
+  "editor": {
+    "title": "Crear Nueva Plantilla",
+    "new": "Nueva",
+    "btn_save": "Guardar Plantilla",
+    "btn_cancel": "Cancelar",
+    "settings_title": "Configuración de Plantilla",
+    "label_name": "Nombre Interno",
+    "placeholder_name": "Ej: Propuesta Comercial V1",
+    "label_folder": "Carpeta de destino",
+    "select_folder": "Selecciona una carpeta",
+    "label_subject": "Asunto del Correo (Subject)",
+    "placeholder_subject": "¡Tenemos una propuesta para ti!",
+    "placeholder_content": "Escribe el cuerpo del correo aquí...",
+    "dynamic_fields": "Campos Dinámicos",
+    "label_dynamic": "Valor del campo",
+    "btn_process": "Procesar y Copiar",
+    "add_field": "Agregar Espacio Dinámico"
+  },
+  "folders": {
+    "title":"Carpetas",
+    "subtitle":"Encuentra aquí todas tus carpetas",
+    "btn_new": "Nueva Carpeta",
+    "search_placeholder":"Buscar por nombre...",
+    "loading":"Cargando carpetas compartidas...",
+  "modal": {
+    "title":"NUEVA CARPETA",
+    "input_label": "Nombre de la nueva carpeta",
+    "placeholder": "ingresa el nombre de la carpeta",
+    "btn_cancel": "cancelar",
+    "btn_confirm": "Confirmar"
+  }
+  }
+}

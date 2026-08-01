@@ -1,0 +1,331 @@
+
+==================================================
+ARCHIVO: my-templates.html
+==================================================
+
+<div class="flex min-h-screen bg-slate-50">
+  <aside class="w-64 bg-white border-r border-slate-200 flex flex-col sticky top-0 h-screen">
+    <div class="p-6 border-b border-slate-100">
+      <div class="flex items-center gap-3">
+        <img src="slogan.png" alt="Logo" class="w-40 h-25"> 
+      </div>
+    </div>
+    <nav class="flex-1 p-4 space-y-2">
+      <a routerLink="/dashboard" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition-all">
+        <i class="fa-solid fa-house"></i> {{ 'dashboard.menu.home' | transloco }}
+      </a>
+      <a routerLink="/my-templates" class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-blue-600 bg-blue-50 rounded-xl">
+        <i class="fa-solid fa-file-lines"></i> {{ 'dashboard.menu.templates' | transloco }}
+      </a>
+      <a routerLink="/folders" class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition-all">
+        <i class="fa-solid fa-folder"></i> {{ 'dashboard.menu.folders' | transloco }}
+      </a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 p-8">
+    <header class="flex justify-between items-end mb-10">
+      <div>
+        <h1 class="text-3xl font-black text-slate-900 tracking-tight">{{ 'templates.title' | transloco }}</h1>
+        <p class="text-slate-500 text-sm">{{ 'templates.subtitle' | transloco }}</p>
+      </div>
+
+      <div class="flex gap-4 items-center">
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          <input type="text" [(ngModel)]="searchTerm" [placeholder]="'templates.search_placeholder' | transloco"
+            class="bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none w-64 shadow-sm">
+        </div>
+
+        <div class="relative">
+          <button (click)="toggleNewDropdown()"
+            class="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center gap-2 active:scale-95">
+            {{ 'templates.btn_new' | transloco }} <i class="fa-solid fa-chevron-down text-[10px]"></i>
+          </button>
+
+          @if (isNewDropdownOpen) {
+            <div class="absolute right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-2xl z-50 overflow-hidden py-1">
+              <button class="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-3 transition-colors" routerLink="/new-template">
+                <i class="fa-solid fa-file-circle-plus text-blue-600"></i> {{ 'templates.new_template' | transloco }}
+              </button>
+              <button class="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-3 transition-colors">
+                <i class="fa-solid fa-folder-plus text-indigo-600"></i> {{ 'templates.new_folder' | transloco }}
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </header>
+
+    @if (isLoading()) {
+      <div class="text-center py-20 text-slate-400 font-medium">
+        <i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Cargando plantillas corporativas...
+      </div>
+    } @else {
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10" *ngIf="backendStats()">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center bg-slate-50 text-blue-600">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+          </div>
+          <p class="text-2xl font-black text-slate-900">{{ backendStats()?.totalTemplates }}</p>
+          <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">{{ 'templates.stats.total' | transloco }}</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center bg-slate-50 text-indigo-600">
+              <i class="fa-solid fa-folder"></i>
+            </div>
+          </div>
+          <p class="text-2xl font-black text-slate-900">{{ backendStats()?.totalFolders }}</p>
+          <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">{{ 'templates.stats.folders' | transloco }}</p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center justify-between mb-2">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center bg-slate-50 text-emerald-500">
+              <i class="fa-solid fa-database"></i>
+            </div>
+          </div>
+          <p class="text-2xl font-black text-slate-900">{{ backendStats()?.slotsUsagePercentage }}%</p>
+          <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">{{ 'templates.stats.slots' | transloco }}</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        @for (folder of folders(); track folder.id) {
+          
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <button (click)="toggleFolder(folder)" 
+              class="w-full px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+              <div class="flex items-center gap-4">
+                <i class="fa-solid text-xl" [ngClass]="folder.open ? 'fa-folder-open text-indigo-500' : 'fa-folder text-indigo-600'"></i>
+                <span class="font-bold text-slate-800">{{ folder.name }}</span>
+                <span class="bg-slate-100 text-slate-500 text-[10px] px-2 py-0.5 rounded-full">
+                  {{ folder.templates.length || 0 }} items
+                </span>
+              </div>
+              <i class="fa-solid text-slate-400 transition-transform" [ngClass]="folder.open ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+            </button>
+
+            @if (folder.open) {
+              <div class="border-t border-slate-50 divide-y divide-slate-50">
+                @for (template of folder.templates; track template.id) {
+                  @if (searchTerm === '' || template.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    
+                    <div class="px-10 py-4 flex items-center justify-between group hover:bg-blue-50/30 cursor-pointer">
+                      <div class="flex items-center gap-4">
+                        <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+                          <i class="fa-solid fa-file-lines text-sm"></i>
+                        </div>
+                        <div>
+                          <p class="text-sm font-bold text-slate-700 group-hover:text-blue-600 transition-colors">{{ template.title }}</p>
+                          <p class="text-[11px] text-slate-400 italic">Estructura: {{ template.title }}</p>
+                        </div>
+                      </div>
+                      <div class="flex items-center gap-4">
+                        <span class="text-[10px] font-black text-slate-400 border border-slate-200 px-1.5 rounded uppercase">{{ template.lang }}</span>
+                        
+                        <div class="relative">
+                          <button (click)="toggleTemplateOptions($event, template.id)" 
+                            class="opacity-0 group-hover:opacity-100 p-2 text-slate-400 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-all">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                          </button>
+
+                          @if (activeTemplateDropdownId() === template.id) {
+                            <div class="absolute right-0 mt-1 w-32 bg-white border border-slate-100 rounded-xl shadow-xl z-50 overflow-hidden py-1">
+                              <button (click)="$event.stopPropagation()" 
+                                class="w-full text-left px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 flex items-center gap-2 transition-colors">
+                                <i class="fa-solid fa-pen text-slate-400"></i> Editar
+                              </button>
+                              
+                              <button (click)="deleteTemplate($event, template.id)" 
+                                class="w-full text-left px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors">
+                                <i class="fa-solid fa-trash text-red-500"></i> Eliminar
+                              </button>
+                            </div>
+                          }
+                        </div>
+
+                      </div>
+                    </div>
+
+                  }
+                } @empty {
+                  <div class="px-10 py-4 text-xs italic text-slate-400 bg-slate-50/50">
+                    No hay plantillas guardadas en esta carpeta.
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+        } @empty {
+          <div class="p-12 text-center bg-white rounded-2xl border border-slate-200 text-slate-400 italic">
+            No se han encontrado carpetas de trabajo para tu equipo. ¡Crea una estructura para empezar!
+          </div>
+        }
+      </div>
+
+    }
+  </main>
+</div>
+
+==================================================
+ARCHIVO: my-templates.spec.ts
+==================================================
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { MyTemplatesComponent } from './my-templates';
+
+describe('MyTemplatesComponent', () => {
+  let component: MyTemplatesComponent;
+  let fixture: ComponentFixture<MyTemplatesComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [MyTemplatesComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(MyTemplatesComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+==================================================
+ARCHIVO: my-templates.ts
+==================================================
+
+import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
+import { Folder, TemplateService } from '../../../core/services/template-sync'; // Ajusta tu ruta
+
+@Component({
+  selector: 'app-my-templates',
+  standalone: true,
+  imports: [CommonModule, RouterModule, FormsModule, TranslocoModule],
+  templateUrl: './my-templates.html'
+})
+export class MyTemplatesComponent implements OnInit {
+  private templateService = inject(TemplateService);
+
+  public searchTerm: string = '';
+  public isNewDropdownOpen: boolean = false;
+  
+  // Estado reactivo para rastrear qué menú de opciones de plantilla está abierto
+  public activeTemplateDropdownId = signal<string | null>(null);
+
+  // Enlazamos directamente a los signals del servicio
+  public folders = this.templateService.folders;
+  public isLoading = this.templateService.isLoading;
+  public backendStats = this.templateService.stats;
+
+  ngOnInit(): void {
+    this.loadScreenData();
+  }
+
+  private loadScreenData() {
+    this.templateService.getFoldersAndTemplates().subscribe({
+      error: (err) => console.error('Error cargando carpetas:', err)
+    });
+
+    this.templateService.getTemplateStats().subscribe({
+      error: (err) => console.error('Error cargando métricas:', err)
+    });
+  }
+
+  toggleNewDropdown() {
+    this.isNewDropdownOpen = !this.isNewDropdownOpen;
+  }
+
+  toggleFolder(folder: Folder) {
+    folder.open = !folder.open;
+  }
+
+  toggleTemplateOptions(event: Event, templateId: string | undefined) {
+    event.stopPropagation(); // Evita clics no deseados en el contenedor
+    if (!templateId) return;
+    
+    if (this.activeTemplateDropdownId() === templateId) {
+      this.activeTemplateDropdownId.set(null);
+    } else {
+      this.activeTemplateDropdownId.set(templateId);
+    }
+  }
+
+  deleteTemplate(event: Event, templateId: string | undefined) {
+    event.stopPropagation();
+    if (!templateId) return;
+
+    if (confirm('¿Estás seguro de que deseas eliminar esta plantilla corporativa?')) {
+      // Nota: Si no tienes el método deleteTemplate creado en tu servicio 'templateService', 
+      // puedes crearlo rápido mapeando un http.delete(`${this.TEMPLATES_API_URL}/${id}`)
+      this.templateService.deleteTemplate(templateId).subscribe({
+        next: () => {
+          this.activeTemplateDropdownId.set(null);
+          this.loadScreenData(); // Recargamos para refrescar la vista y los KPIs en tiempo real
+        },
+        error: (err) => {
+          console.error('Error al borrar el template:', err);
+          alert('No se pudo eliminar la plantilla debido a las reglas de suscripción o red.');
+        }
+      });
+    }
+  }
+}
+
+==================================================
+ARCHIVO: unificar_codigo (1) (1).py
+==================================================
+
+import os
+
+# 1. Agregamos '.env' a la lista de cosas prohibidas
+IGNORAR = {
+    '.venv', '__pycache__', '.git', 'dist', 'build', 
+    '.pytest_cache', 'civi.spec', '.env', '.env.local'
+}
+
+def unificar_proyecto(ruta_raiz, archivo_salida):
+    with open(archivo_salida, 'w', encoding='utf-8') as outfile:
+        for raiz, dirs, archivos in os.walk(ruta_raiz):
+            # Filtrar carpetas ignoradas
+            dirs[:] = [d for d in dirs if d not in IGNORAR]
+            
+            for nombre_archivo in archivos:
+                # 2. FILTRO DE SEGURIDAD EXTRA:
+                # Si el archivo es EXACTAMENTE '.env' o empieza por '.env.', lo saltamos.
+                if nombre_archivo == '.env' or nombre_archivo.startswith('.env.'):
+                    continue
+
+                # Solo leemos los archivos de código que permitimos
+                extensiones_permitidas = ('.py', '.yml', '.yaml', '.env.example', '.sql','.ts','.html')
+                if nombre_archivo.endswith(extensiones_permitidas):
+                    ruta_completa = os.path.join(raiz, nombre_archivo)
+                    outfile.write(f"\n{'='*50}\n")
+                    outfile.write(f"ARCHIVO: {os.path.relpath(ruta_completa, ruta_raiz)}\n")
+                    outfile.write(f"{'='*50}\n\n")
+                    
+                    try:
+                        with open(ruta_completa, 'r', encoding='utf-8') as infile:
+                            outfile.write(infile.read())
+                    except Exception as e:
+                        outfile.write(f"Error al leer {nombre_archivo}: {e}")
+                    outfile.write("\n")
+
+if __name__ == "__main__":
+    unificar_proyecto('.', 'todo_mi_codigo.txt')
+    print("✅ ¡Listo! El archivo 'todo_mi_codigo.txt' se creó sin datos sensibles.")

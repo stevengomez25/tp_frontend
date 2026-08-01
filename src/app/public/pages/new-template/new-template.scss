@@ -1,0 +1,21 @@
+:host ::ng-deep {
+  .dynamic-chip {
+    background-color: #dbeafe !important; // bg-blue-100
+    color: #1e40af !important;           // text-blue-800
+    padding: 2px 8px !important;
+    border-radius: 6px !important;
+    border: 1px solid #bfdbfe !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 2px !important;
+    user-select: none !important;
+    font-family: sans-serif !important;
+    
+    // Evita que el usuario borre letras individuales dentro del chip
+    &[contenteditable="false"] {
+        cursor: default;
+    }
+  }
+}

@@ -1,0 +1,132 @@
+<nav class="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md">
+    <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+
+        <div class="flex items-center">
+            <a routerLink="/" class="flex items-center gap-3 group">
+                <div class="hidden sm:flex items-center gap-2 border-l border-slate-200 pl-3">
+                    <img src="slogan.png" alt="Logo icon" class="w-12 h-12 object-contain">
+                    <span class="text-[10px] leading-tight font-medium text-slate-500 uppercase tracking-widest max-w-20">
+                        {{ 'nav.slogan' | transloco }}
+                    </span>
+                </div>
+            </a>
+        </div>
+
+        <ul class="hidden gap-8 md:flex">
+            @for (link of navLinks; track link.name) {
+            <li>
+                <a [routerLink]="link.path" routerLinkActive="text-blue-600" [routerLinkActiveOptions]="{exact: true}"
+                    class="text-sm font-semibold text-slate-600 transition-colors hover:text-blue-600">
+                    {{ link.name }}
+                </a>
+            </li>
+            }
+        </ul>
+
+        <div class="hidden items-center gap-4 md:flex">
+            
+            @if (!authService.currentUser()) {
+                <a routerLink="/login" class="text-sm font-semibold text-slate-900 hover:text-blue-600">
+                    {{ 'nav.login' | transloco }}
+                </a>
+                <a routerLink="/signup"
+                    class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-bold text-white transition-all hover:bg-blue-700 hover:shadow-lg active:scale-95">
+                    {{ 'nav.signup' | transloco }}
+                </a>
+            } 
+            @else {
+                <div class="relative">
+                    <button (click)="toggleProfileDropdown()" class="flex items-center gap-2 focus:outline-none group">
+                        <img [src]="authService.currentUser()?.avatar" 
+                             class="w-10 h-10 rounded-full border-2 border-slate-200 group-hover:border-blue-500 transition-all shadow-sm" alt="Avatar">
+                        <i class="fa-solid fa-chevron-down text-xs text-slate-400 group-hover:text-slate-600 transition-transform" 
+                           [class.rotate-180]="isProfileDropdownOpen()"></i>
+                    </button>
+
+                    @if (isProfileDropdownOpen()) {
+                        <div class="absolute right-0 mt-3 w-56 bg-white border border-slate-100 rounded-2xl shadow-2xl z-50 overflow-hidden py-1.5 animate-in fade-in slide-in-from-top-2 duration-200">
+                            <div class="px-4 py-2.5 border-b border-slate-100 bg-slate-50/50">
+                                <p class="text-xs font-bold text-slate-800 truncate">{{ authService.currentUser()?.name }}</p>
+                                <p class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-0.5">{{ authService.currentUser()?.plan }}</p>
+                            </div>
+                            
+                            <a routerLink="/dashboard" (click)="isProfileDropdownOpen.set(false)" class="px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 flex items-center gap-3 transition-colors font-medium">
+                                <i class="fa-solid fa-chart-pie text-slate-400 w-4"></i> Dashboard
+                            </a>
+                            <a routerLink="/profile" (click)="isProfileDropdownOpen.set(false)" class="px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 flex items-center gap-3 transition-colors font-medium">
+                                <i class="fa-solid fa-user text-slate-400 w-4"></i> {{ ('nav.profile' | transloco) || 'Perfil' }}
+                            </a>
+                            <a routerLink="/my-templates" (click)="isProfileDropdownOpen.set(false)" class="px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 flex items-center gap-3 transition-colors font-medium">
+                                <i class="fa-solid fa-file-lines text-slate-400 w-4"></i> {{ ('templates.title' | transloco) || 'Mis Templates' }}
+                            </a>
+                            <a routerLink="/help" (click)="isProfileDropdownOpen.set(false)" class="px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50 flex items-center gap-3 transition-colors font-medium border-b border-slate-100">
+                                <i class="fa-solid fa-circle-question text-slate-400 w-4"></i> {{ ('nav.help' | transloco) || 'Ayuda' }}
+                            </a>
+                            
+                            <button (click)="logout()" class="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50/50 flex items-center gap-3 transition-colors font-semibold">
+                                <i class="fa-solid fa-arrow-right-from-bracket w-4"></i> {{ ('nav.logout' | transloco) || 'Cerrar Sesión' }}
+                            </button>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="flex items-center border-l border-slate-200 ml-4 pl-4 gap-2">
+            <button (click)="changeLang('es')" [class.text-blue-600]="activeLang === 'es'"
+                class="text-xs font-bold hover:text-blue-500 transition-colors hover:cursor-pointer">ES</button>
+            <span class="text-slate-300">|</span>
+            <button (click)="changeLang('en')" [class.text-blue-600]="activeLang === 'en'"
+                class="text-xs font-bold hover:text-blue-500 transition-colors hover:cursor-pointer">EN</button>
+        </div>
+
+        <button (click)="toggleMenu()"
+            class="inline-flex items-center justify-center rounded-md p-2 text-slate-600 md:hidden hover:bg-slate-100">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                @if (!isMenuOpen) {
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                } @else {
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                }
+            </svg>
+        </button>
+    </div>
+
+    @if (isMenuOpen) {
+    <div class="border-t border-slate-100 bg-white p-6 md:hidden">
+        <div class="flex flex-col gap-4">
+            @for (link of navLinks; track link.name) {
+            <a [routerLink]="link.path" (click)="isMenuOpen = false" class="text-base font-medium text-slate-600">
+                {{ link.name }}
+            </a>
+            }
+            
+            <hr class="border-slate-100 my-1">
+
+            @if (authService.currentUser()) {
+                <div class="flex flex-col gap-3">
+                    <div class="flex items-center gap-3 bg-slate-50 p-2 rounded-xl">
+                        <img [src]="authService.currentUser()?.avatar" class="w-9 h-9 rounded-full border">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">{{ authService.currentUser()?.name }}</p>
+                            <p class="text-[10px] uppercase font-bold text-slate-400">{{ authService.currentUser()?.plan }}</p>
+                        </div>
+                    </div>
+                    <a routerLink="/dashboard" (click)="isMenuOpen = false" class="text-sm font-medium text-slate-600 pl-2"><i class="fa-solid fa-chart-pie mr-2"></i> Dashboard</a>
+                    <a routerLink="/profile" (click)="isMenuOpen = false" class="text-sm font-medium text-slate-600 pl-2"><i class="fa-solid fa-user mr-2"></i> Perfil</a>
+                    <a routerLink="/my-templates" (click)="isMenuOpen = false" class="text-sm font-medium text-slate-600 pl-2"><i class="fa-solid fa-file-lines mr-2"></i> Mis Templates</a>
+                    <button (click)="logout()" class="text-sm font-bold text-red-500 text-left pl-2 mt-2"><i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Cerrar Sesión</button>
+                </div>
+            } @else {
+                <a routerLink="/login" (click)="isMenuOpen = false" class="text-base font-medium text-slate-900">
+                    {{ 'nav.login' | transloco }}
+                </a>
+                <a routerLink="/signup" (click)="isMenuOpen = false"
+                    class="rounded-lg bg-blue-600 py-3 text-center text-base font-bold text-white shadow-md">
+                    {{ 'nav.signup' | transloco }}
+                </a>
+            }
+        </div>
+    </div>
+    }
+</nav>
