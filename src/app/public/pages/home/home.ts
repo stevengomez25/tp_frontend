@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoModule],
+  imports: [CommonModule, FormsModule, TranslocoModule, RouterLink],
   templateUrl: './home.html'
 })
 export class Home implements OnInit {
