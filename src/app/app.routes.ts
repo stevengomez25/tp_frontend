@@ -26,6 +26,6 @@ export const routes: Routes = [
   {path:'order-confirmed', component:OrderConfirmedComponent},
   { path: 'use-template/:id', component: UseTemplateComponent },
 
-  { path: '**', redirectTo: 'home', pathMatch: 'full' }
+  { path: '**', redirectTo: '', pathMatch: 'full' }
   // ... otras rutas
 ];
