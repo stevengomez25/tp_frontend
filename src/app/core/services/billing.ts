@@ -34,7 +34,7 @@ declare var WidgetCheckout: any;
 })
 export class BillingService {
   
-  private readonly API_URL = `${environment.baseUrl}/api/payments`;
+  private readonly API_URL = `${environment.apiUrl}/api/payments`;
 
   constructor(private http: HttpClient) { }
 
