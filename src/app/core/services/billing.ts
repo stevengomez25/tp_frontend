@@ -6,7 +6,6 @@ import { environment } from '../../../environments/environment';
 export interface CheckoutRequest {
   targetPlan: string;
   amountInCents: number;
-  billingCycle: 'MONTHLY' | 'YEARLY';
 }
 
 export interface OrderResponse {
