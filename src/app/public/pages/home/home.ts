@@ -4,11 +4,12 @@ import { Title, Meta } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { RouterLink } from '@angular/router';
+import { ScrollAnimateDirective } from '../../../shared/directives/scroll-animate';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslocoModule, RouterLink],
+  imports: [CommonModule, FormsModule, TranslocoModule, RouterLink, ScrollAnimateDirective],
   templateUrl: './home.html'
 })
 export class Home implements OnInit {
