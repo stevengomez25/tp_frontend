@@ -60,7 +60,7 @@ export class BillingService {
     // Configuración oficial del objeto de Checkout de Wompi
     const checkoutConfig = {
       currency: order.currency,
-      amountInCents: order.amountInCents,
+      amountInCents: Number(order.amountInCents),
       reference: order.reference,
       publicKey: environment.wompiPublicKey, // Tu llave pública de Wompi en el environment
       signature: { 
@@ -75,6 +75,7 @@ export class BillingService {
 
     // Instanciamos y abrimos el checkout modular
     const checkout = new WidgetCheckout(checkoutConfig);
+    console.log("Configuración enviada al widget de Wompi:", checkoutConfig);
     checkout.open((result: any) => {
       const transaction = result.transaction;
       console.log(`Transacción finalizada en interfaz con estado: ${transaction.status}`);
