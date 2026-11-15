@@ -72,10 +72,11 @@ export class BillingService {
         fullName: fullName
       }
     };
-
+    
+    console.log("Configuración enviada al widget de Wompi:", checkoutConfig);
     // Instanciamos y abrimos el checkout modular
     const checkout = new WidgetCheckout(checkoutConfig);
-    console.log("Configuración enviada al widget de Wompi:", checkoutConfig);
+    
     checkout.open((result: any) => {
       const transaction = result.transaction;
       console.log(`Transacción finalizada en interfaz con estado: ${transaction.status}`);
