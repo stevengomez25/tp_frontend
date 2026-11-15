@@ -149,12 +149,12 @@ export class BillingComponent implements OnInit {
     const totalAmountInCents = this.isYearly
       ? finalMonthlyPrice * 12 * 100
       : finalMonthlyPrice * 100;
-
+    const cycle = this.isYearly ? 'YEARLY' : 'MONTHLY';
     // 2. Payload limpio que coincide 100% con el DTO de Java
     const checkoutData: CheckoutRequest = {
       targetPlan: planId,
       amountInCents: totalAmountInCents,
-      // Se elimina 'billingCycle' porque el backend no lo tiene en su CheckoutRequest
+      billingCycle: cycle // <-- Vuelve a enviarlo
     };
 
     // 3. Consumimos el backend y abrimos Wompi
