@@ -27,9 +27,9 @@ export class GettingStartedComponent {
 
   // Variables para la vista de "Miembro de equipo"
   bossNoDomain: boolean = false;
-  bossInput: string = ''; // Guardará el dominio o el correo dependiendo del toggle
+  bossInput: string = ''; 
 
-  // Datos de ejemplo basados en tu estructura HTML
+  // 🔄 IDs sincronizados exactamente con el Enum PlanType de Java
   planes: Plan[] = [
     {
       id: 'FREE',
@@ -40,27 +40,52 @@ export class GettingStartedComponent {
       features: ['5 plantillas básicas', 'Soporte comunitario']
     },
     {
-      id: 'PRO',
+      id: 'PREMIUM', // Coincide con PlanType.PREMIUM
       name: 'Profesional',
       description: 'Para freelancers y solopreneurs que necesitan marca personal.',
-      monthlyPrice: 15,
+      monthlyPrice: 19000,
       type: 'B2C',
       badge: 'Más Popular',
       features: ['Plantillas ilimitadas', 'Firmas personalizadas', 'Soporte prioritario']
     },
     {
-      id: 'TEAM_START',
-      name: 'Equipos Start',
+      id: 'PREMIUM_PLUS', // Coincide con PlanType.PREMIUM_PLUS
+      name: 'Premium+ (Con IA)',
+      description: 'Potencia tus correos con Inteligencia Artificial.',
+      monthlyPrice: 39000,
+      type: 'B2C',
+      features: ['Todo lo del plan Premium', 'Asistencia de IA integrada', 'Límite de peticiones de IA']
+    },
+    {
+      id: 'STARTER_TEAM', // Coincide con PlanType.STARTER_TEAM
+      name: 'Starter Team',
       description: 'Perfecto para agencias pequeñas y equipos en crecimiento.',
-      monthlyPrice: 49,
+      monthlyPrice: 99000,
       type: 'B2B',
       features: ['Hasta 5 miembros', 'Control de marca centralizado', 'Estadísticas de uso']
     },
     {
-      id: 'ENTERPRISE',
+      id: 'GROWTH_TEAM', // Coincide con PlanType.GROWTH_TEAM
+      name: 'Growth Team',
+      description: 'Control avanzado de marca y analíticas básicas.',
+      monthlyPrice: 249000,
+      type: 'B2B',
+      badge: 'Mejor Valor B2B',
+      features: ['Hasta 25 usuarios', 'Control de Marca', 'Dashboard de analíticas']
+    },
+    {
+      id: 'SCALE_UP', // Coincide con PlanType.SCALE_UP
+      name: 'Scale-up',
+      description: 'Para operaciones comerciales en crecimiento.',
+      monthlyPrice: 599000,
+      type: 'B2B',
+      features: ['De 26 a 100 miembros', 'Analíticas avanzadas', 'Flujo de aprobación previa']
+    },
+    {
+      id: 'ENTERPRISE', // Coincide con PlanType.ENTERPRISE
       name: 'Corporativo',
       description: 'Para organizaciones que requieren control total y cumplimiento.',
-      monthlyPrice: 99,
+      monthlyPrice: 999000, // Ajusta si es necesario
       type: 'B2B',
       badge: 'Recomendado',
       features: ['Miembros ilimitados', 'Integración SSO', 'Soporte 24/7', 'Auditoría avanzada']
@@ -70,35 +95,30 @@ export class GettingStartedComponent {
   // Métodos de navegación
   setView(view: 'selection' | 'b2c' | 'b2b' | 'member') {
     this.currentView = view;
-    // Reseteamos el formulario si volvemos a la selección
     if (view === 'selection') {
       this.bossInput = '';
       this.bossNoDomain = false;
     }
   }
 
-  // Métodos de los planes
   getPlanPrice(price: number): number {
-    return this.isYearly ? price * 0.8 : price; // 20% de descuento anual
+    return this.isYearly ? price * 0.8 : price; 
   }
 
   selectPlan(id: string) {
     console.log('Iniciando checkout para el plan:', id);
-    // Aquí va tu lógica para redirigir a Stripe, LemonSqueezy, etc.
+    // Aquí conectas con tu servicio de pago o backend enviando este id exacto.
   }
 
-  // Métodos de la vista de miembro
   submitMemberForm() {
     if (this.bossNoDomain) {
       console.log('Buscando equipo por correo del jefe:', this.bossInput);
     } else {
       console.log('Buscando equipo por dominio:', this.bossInput);
     }
-    // Lógica para asociar al usuario al workspace del jefe
   }
 
   continueWithFreePlan() {
     console.log('Omitiendo vinculación, continuando con plan gratuito');
-    // Lógica para finalizar el registro en el tier gratuito
   }
 }
