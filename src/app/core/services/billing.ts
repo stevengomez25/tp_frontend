@@ -63,7 +63,9 @@ export class BillingService {
       amountInCents: order.amountInCents,
       reference: order.reference,
       publicKey: environment.wompiPublicKey, // Tu llave pública de Wompi en el environment
-      signatureIntegrity: order.integritySignature,
+      signature: { 
+        integrity: order.integritySignature // <--- CORREGIDO: Wompi espera esto exactamente
+      },
       redirectUrl: `${window.location.origin}/dashboard/order-confirmed`, // Redirección al terminar
       customerData: {
         email: userEmail,
