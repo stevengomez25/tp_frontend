@@ -150,17 +150,16 @@
             class="text-2xl font-bold text-gray-900 inline-flex items-center gap-3 border-b-2 border-emerald-100 pb-2">
             <span class="text-3xl">🏢</span> Planes Corporativos & Equipos
           </h3>
-          <p class="text-sm text-gray-500 mt-2">Escala la productividad de tus equipos de trabajo con control total.</p>
+          <p class="mt-2 text-sm text-gray-500">Escala la productividad de toda tu organización con control total.</p>
         </div>
 
-        <!-- Cambiamos a 1 columna en móvil, y hasta 3 columnas en pantallas grandes para que fluyan de corrido -->
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto items-stretch">
+        <!-- Cambiado a grid-cols-1 para móvil y lg:grid-cols-3 para computadora, distribuidas horizontalmente -->
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-3 max-w-7xl mx-auto items-stretch px-4">
           <ng-container *ngFor="let plan of planes">
             <div *ngIf="plan.type === 'B2B'"
-              [ngClass]="plan.badge ? 'ring-2 ring-emerald-500 shadow-xl scale-102 lg:-translate-y-2 bg-white z-10' : 'ring-1 ring-gray-200 shadow-md bg-white/90'"
-              class="relative rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 h-full hover:-translate-y-3 hover:shadow-2xl hover:ring-2 hover:ring-emerald-400 group">
+              [ngClass]="plan.badge ? 'ring-2 ring-emerald-500 shadow-2xl lg:scale-105 z-10 bg-white' : 'ring-1 ring-gray-200 shadow-md bg-white/90'"
+              class="relative rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 h-full hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-emerald-400 group">
 
-              <!-- Badge flotante -->
               <div *ngIf="plan.badge"
                 class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 inline-flex items-center rounded-full bg-linear-to-r from-emerald-500 to-teal-500 px-5 py-1.5 text-xs font-bold text-white uppercase tracking-widest shadow-lg">
                 {{ plan.badge }}
@@ -178,13 +177,12 @@
                   <span class="ml-2 text-lg font-medium text-gray-500">/mes</span>
                 </div>
                 <p class="mt-1 min-h-6">
-                  <span *ngIf="isYearly" class="text-sm text-emerald-600 font-semibold">Facturado anualmente (Ahorra
-                    20%)</span>
+                  <span *ngIf="isYearly" class="text-sm text-emerald-600 font-semibold">Facturado anualmente</span>
                 </p>
 
                 <div class="mt-8 pt-6 border-t border-gray-100">
                   <p class="text-sm font-bold mb-4" [ngClass]="plan.badge ? 'text-emerald-600' : 'text-gray-900'">
-                    {{ plan.badge ? 'Todo lo del plan anterior, además:' : 'Características base corporativas:' }}
+                    {{ plan.badge ? 'Todo lo del plan de equipos, además:' : 'Características base corporativas:' }}
                   </p>
                   <ul role="list" class="space-y-4">
                     <li *ngFor="let feature of plan.features" class="flex items-start">
@@ -202,8 +200,8 @@
               </div>
 
               <button (click)="selectPlan(plan.id)"
-                [ngClass]="plan.badge ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md' : 'bg-gray-800 hover:bg-gray-900 text-white hover:cursor-pointer'"
-                class="mt-10 block w-full py-3.5 px-6 rounded-2xl text-center text-sm font-bold transition-all duration-200 transform active:scale-95">
+                [ngClass]="plan.badge ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md' : 'bg-gray-800 hover:bg-gray-900 text-white'"
+                class="mt-10 block w-full py-3.5 px-6 rounded-2xl text-center text-sm font-bold transition-all duration-200">
                 Adquirir {{ plan.name }}
               </button>
             </div>
