@@ -17,7 +17,7 @@ interface PlanInterface {
   selector: 'app-billing',
   imports: [CommonModule],
   templateUrl: './billing.html',
-  styleUrls: ['./billing.scss'], // Asegúrate de tenerlo o dejarlo vacío
+  styleUrls: ['./billing.scss'],
 })
 export class BillingComponent implements OnInit {
   // false = Mensual, true = Anual
@@ -107,40 +107,45 @@ export class BillingComponent implements OnInit {
         'Flujo de trabajo: Aprobación previa de templates',
       ],
     },
+    {
+      id: 'ENTERPRISE',
+      name: 'Corporativo',
+      type: 'B2B',
+      monthlyPrice: 999000, // $999.000 COP (Ajusta el precio si lo requieres)
+      description: 'Para organizaciones que requieren control total y cumplimiento.',
+      features: [
+        'Miembros ilimitados',
+        'Integración SSO',
+        'Soporte 24/7',
+        'Auditoría avanzada',
+      ],
+      badge: 'Recomendado',
+    },
   ];
 
   constructor(
     private billingService: BillingService,
-    private authService: AuthService, // Para extraer el email y nombre del usuario logeado
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {}
 
-  /**
-   * Calcula el precio visual final aplicando el 20% si es anual
-   */
   getPlanPrice(basePrice: number): number {
     if (basePrice === 0) return 0;
     if (this.isYearly) {
-      // Precio por mes cobrado anualmente con 20% de descuento
       return Math.round(basePrice * 0.8);
     }
     return basePrice;
   }
 
-  /**
-   * Acción del botón de compra
-   */
   selectPlan(planId: string) {
     if (planId === 'FREE') return;
 
-    // 1. Buscamos el plan en nuestro arreglo para saber su precio base
     const planSelected = this.planes.find((p) => p.id === planId);
     if (!planSelected) return;
 
     const cycle = this.isYearly ? 'YEARLY' : 'MONTHLY';
 
-    // 2. Calculamos el monto final en centavos que espera recibir el backend
     const finalMonthlyPrice = this.getPlanPrice(planSelected.monthlyPrice);
     const totalAmountInCents = this.isYearly
       ? finalMonthlyPrice * 12 * 100
@@ -152,15 +157,12 @@ export class BillingComponent implements OnInit {
       billingCycle: cycle,
     };
 
-    // 3. Consumimos el backend y desplegamos el Widget de Wompi en un solo flujo continuo
     this.billingService.initiateCheckout(checkoutData).subscribe({
       next: (orderResponse) => {
-        // Extraemos los datos del usuario autenticado (ajusta según tus métodos en el AuthService)
         const currentUser = this.authService.currentUser();
         const email = currentUser?.email || 'cliente@empresa.com';
         const name = currentUser?.name || 'Usuario TempMailPro';
 
-        // Desplegamos el widget en la pantalla
         this.billingService.openWompiWidget(orderResponse, email, name);
       },
       error: (err) => {

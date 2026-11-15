@@ -1,8 +1,10 @@
-import { ScrollAnimate } from './scroll-animate';
+import { ScrollAnimateDirective } from './scroll-animate';
 
-describe('ScrollAnimate', () => {
+describe('ScrollAnimateDirective', () => {
   it('should create an instance', () => {
-    const directive = new ScrollAnimate();
+    const element = { nativeElement: document.createElement('div') } as any;
+    const renderer = {} as any;
+    const directive = new ScrollAnimateDirective(element, renderer);
     expect(directive).toBeTruthy();
   });
 });
