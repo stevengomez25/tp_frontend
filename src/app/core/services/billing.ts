@@ -64,7 +64,7 @@ export class BillingService {
       signature: {
         integrity: order.integritySignature, // <--- CORREGIDO: Wompi espera esto exactamente
       },
-      redirectUrl: `${window.location.origin}/dashboard/order-confirmed`, // Redirección al terminar
+      redirectUrl: `${window.location.origin}/order-confirmed`, // Redirección al terminar
       customerData: {
         email: userEmail,
         fullName: fullName,
