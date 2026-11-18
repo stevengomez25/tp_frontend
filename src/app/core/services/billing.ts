@@ -61,6 +61,7 @@ export class BillingService {
     const pathSegments = url.pathname.split('/').filter(Boolean);
     pathSegments.pop();
     const redirectUrl = `${url.origin}/${pathSegments.join('/')}/}`
+    console.log(redirectUrl);
     const checkoutConfig = {
       currency: order.currency,
       amountInCents: Number(order.amountInCents),
