@@ -30,13 +30,12 @@ export interface OrderSummary {
 declare var WidgetCheckout: any;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BillingService {
-  
   private readonly API_URL = `${environment.apiUrl}/api/payments`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    * 1. Solicita la orden de pago y la firma de integridad al Backend
@@ -56,30 +55,33 @@ export class BillingService {
    * 3. Abre el Widget Nativo de Wompi de cara al usuario usando la firma del Backend
    */
   public openWompiWidget(order: OrderResponse, userEmail: string, fullName: string): void {
-    
     // Configuración oficial del objeto de Checkout de Wompi
     const checkoutConfig = {
       currency: order.currency,
       amountInCents: Number(order.amountInCents),
       reference: order.reference,
       publicKey: environment.wompiPublicKey, // Tu llave pública de Wompi en el environment
-      signature: { 
-        integrity: order.integritySignature // <--- CORREGIDO: Wompi espera esto exactamente
+      signature: {
+        integrity: order.integritySignature, // <--- CORREGIDO: Wompi espera esto exactamente
       },
       redirectUrl: `${window.location.origin}/dashboard/order-confirmed`, // Redirección al terminar
       customerData: {
         email: userEmail,
-        fullName: fullName
-      }
+        fullName: fullName,
+      },
     };
-    
-    console.log("Configuración enviada al widget de Wompi:", checkoutConfig);
+
+    console.log('Configuración enviada al widget de Wompi:', checkoutConfig);
     // Instanciamos y abrimos el checkout modular
     const checkout = new WidgetCheckout(checkoutConfig);
-    
+
     checkout.open((result: any) => {
-      const transaction = result.transaction;
-      console.log(`Transacción finalizada en interfaz con estado: ${transaction.status}`);
+      if (result && result.transaction) {
+        console.log(`Transacción finalizada en interfaz con estado: ${result.transaction.status}`);
+        // Redirección manual o lógica adicional si es requerida
+      } else {
+        console.log('El widget se cerró o devolvió un resultado vacío.');
+      }
     });
   }
 }
