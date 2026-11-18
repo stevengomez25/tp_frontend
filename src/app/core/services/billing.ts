@@ -2,7 +2,6 @@ import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import path from 'path';
 import { isPlatformBrowser } from '@angular/common';
 
 export interface CheckoutRequest {
@@ -63,11 +62,6 @@ export class BillingService {
       localStorage.setItem('wompi_last_reference', order.reference);
     }
     
-    const url = new URL(window.location.href);
-    const pathSegments = url.pathname.split('/').filter(Boolean);
-    pathSegments.pop();
-    const redirectUrl = `${url.origin}/${pathSegments.join('/')}`
-    console.log(redirectUrl);
     const checkoutConfig = {
       currency: order.currency,
       amountInCents: Number(order.amountInCents),
@@ -76,7 +70,7 @@ export class BillingService {
       signature: {
         integrity: order.integritySignature, // <--- CORREGIDO: Wompi espera esto exactamente
       },
-      redirectUrl: `${redirectUrl}order-confirmed`, // Redirección al terminar
+      redirectUrl: `${window.location.origin}order-confirmed`, // Redirección al terminar
       customerData: {
         email: userEmail,
         fullName: fullName,
