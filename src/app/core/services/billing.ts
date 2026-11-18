@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import path from 'path';
+import { isPlatformBrowser } from '@angular/common';
 
 export interface CheckoutRequest {
   targetPlan: string;
@@ -36,8 +37,9 @@ declare var WidgetCheckout: any;
 export class BillingService {
   private readonly API_URL = `${environment.apiUrl}/api/payments`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object ) {}
 
+  // <-- Inyectamos el platformId para saber si estamos en el navegador
   /**
    * 1. Solicita la orden de pago y la firma de integridad al Backend
    */
@@ -57,7 +59,9 @@ export class BillingService {
    */
   public openWompiWidget(order: OrderResponse, userEmail: string, fullName: string): void {
     // Configuración oficial del objeto de Checkout de Wompi
-    localStorage.setItem('wompi_last_reference', order.reference);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('wompi_last_reference', order.reference);
+    }
     
     const url = new URL(window.location.href);
     const pathSegments = url.pathname.split('/').filter(Boolean);

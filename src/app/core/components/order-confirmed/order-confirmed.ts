@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BillingService, OrderSummary } from '../../services/billing';
 
@@ -20,15 +20,21 @@ export class OrderConfirmedComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private billingService: BillingService
+    private billingService: BillingService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       // Intentamos leer la referencia de los params de Wompi, y si no viene, la buscamos en localStorage
-      const reference = params['reference'] || localStorage.getItem('wompi_last_reference');
+      let reference = params['reference'];
       this.transactionIdWompi = params['id'] || null;
+      if (!reference && isPlatformBrowser(this.platformId)) {
+        reference = localStorage.getItem('wompi_last_reference');
+      }
 
+      this.transactionIdWompi = params['id'] || null;
+      
       if (reference) {
         this.loadSummary(reference);
         // Opcional: limpiar el storage una vez leída
