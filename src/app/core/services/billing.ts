@@ -60,7 +60,7 @@ export class BillingService {
     const url = new URL(window.location.href);
     const pathSegments = url.pathname.split('/').filter(Boolean);
     pathSegments.pop();
-    const redirectUrl = `${url.origin}/${pathSegments.join('/')}/}`
+    const redirectUrl = `${url.origin}/${pathSegments.join('/')}`
     console.log(redirectUrl);
     const checkoutConfig = {
       currency: order.currency,
@@ -70,7 +70,7 @@ export class BillingService {
       signature: {
         integrity: order.integritySignature, // <--- CORREGIDO: Wompi espera esto exactamente
       },
-      redirectUrl: `${redirectUrl}/order-confirmed`, // Redirección al terminar
+      redirectUrl: `${redirectUrl}order-confirmed`, // Redirección al terminar
       customerData: {
         email: userEmail,
         fullName: fullName,
