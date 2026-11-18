@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import path from 'path';
 
 export interface CheckoutRequest {
   targetPlan: string;
@@ -56,6 +57,10 @@ export class BillingService {
    */
   public openWompiWidget(order: OrderResponse, userEmail: string, fullName: string): void {
     // Configuración oficial del objeto de Checkout de Wompi
+    const url = new URL(window.location.href);
+    const pathSegments = url.pathname.split('/').filter(Boolean);
+    pathSegments.pop();
+    const redirectUrl = `${url.origin}/${pathSegments.join('/')}/}`
     const checkoutConfig = {
       currency: order.currency,
       amountInCents: Number(order.amountInCents),
@@ -64,7 +69,7 @@ export class BillingService {
       signature: {
         integrity: order.integritySignature, // <--- CORREGIDO: Wompi espera esto exactamente
       },
-      redirectUrl: `${window.location.origin}/order-confirmed`, // Redirección al terminar
+      redirectUrl: `${redirectUrl}/order-confirmed`, // Redirección al terminar
       customerData: {
         email: userEmail,
         fullName: fullName,
