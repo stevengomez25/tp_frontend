@@ -57,6 +57,8 @@ export class BillingService {
    */
   public openWompiWidget(order: OrderResponse, userEmail: string, fullName: string): void {
     // Configuración oficial del objeto de Checkout de Wompi
+    localStorage.setItem('wompi_last_reference', order.reference);
+    
     const url = new URL(window.location.href);
     const pathSegments = url.pathname.split('/').filter(Boolean);
     pathSegments.pop();

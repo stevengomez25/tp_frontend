@@ -24,20 +24,21 @@ export class OrderConfirmedComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // 1. Capturamos los parámetros que Wompi inyecta en la URL de retorno
     this.route.queryParams.subscribe(params => {
-      const reference = params['reference'];
+      // Intentamos leer la referencia de los params de Wompi, y si no viene, la buscamos en localStorage
+      const reference = params['reference'] || localStorage.getItem('wompi_last_reference');
       this.transactionIdWompi = params['id'] || null;
 
       if (reference) {
         this.loadSummary(reference);
+        // Opcional: limpiar el storage una vez leída
+        // localStorage.removeItem('wompi_last_reference');
       } else {
         this.loading = false;
         this.error = true;
       }
     });
   }
-
   /**
    * Consulta al Backend el estado real de la transacción usando la referencia única
    */
