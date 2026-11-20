@@ -5,18 +5,18 @@ import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private readonly API_URL = `${environment.apiUrl}/api/auth`; 
+  private readonly API_URL = `${environment.apiUrl}/api/auth`;
 
   private _currentUser = signal<any | null>(null);
   public currentUser = computed(() => this._currentUser());
   public isAuthenticated = computed(() => !!this._currentUser());
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
-    if (isPlatformBrowser(this.platformId)){
+    if (isPlatformBrowser(this.platformId)) {
       this.checkSession();
     }
   }
@@ -40,28 +40,30 @@ export class AuthService {
           this.logout();
           return; // Detenemos la ejecución aquí
         }
+        const rawEmail = decodedToken.email;
+        const validEmail = rawEmail && rawEmail.includes('@') ? rawEmail : null;
 
         this._currentUser.set({
-          id: decodedToken.userId || decodedToken.sub, 
+          id: decodedToken.userId || decodedToken.sub,
           name: decodedToken.name || 'Usuario TempMail Pro',
-          email: decodedToken.email || decodedToken.sub,
-          organizationId: decodedToken.organizationId, 
-          avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(decodedToken.name || 'User')}`
+          email: validEmail,
+          organizationId: decodedToken.organizationId,
+          avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(decodedToken.name || 'User')}`,
         });
       } catch (error) {
         console.error('Error al decodificar el token:', error);
-        this.logout(); 
+        this.logout();
       }
     }
   }
 
   public login(credentials: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/login`, credentials).pipe(
-      tap(response => {
+      tap((response) => {
         if (response && response.token) {
           this.setToken(response.token);
         }
-      })
+      }),
     );
   }
 
@@ -81,7 +83,7 @@ export class AuthService {
   private setToken(token: string) {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('token', token);
-      this.checkSession(); 
+      this.checkSession();
     }
   }
 
@@ -91,5 +93,5 @@ export class AuthService {
       localStorage.removeItem('token');
     }
     this._currentUser.set(null);
-  } 
+  }
 }
