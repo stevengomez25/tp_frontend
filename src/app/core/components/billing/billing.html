@@ -88,7 +88,7 @@
             </div>
 
             <button (click)="selectPlan(plan.id)"
-                    [ngClass]="plan.id === 'FREE' ? 'bg-gray-50 border border-gray-200 text-gray-700 hover:bg-gray-100' : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-md hover:shadow-lg'"
+                    [ngClass]="plan.id === 'FREE' ? 'bg-gray-50 border border-gray-200 text-gray-700 hover:bg-gray-100' : 'bg-indigo-700 hover:bg-indigo-600 text-white shadow-md hover:shadow-lg'"
                     class="mt-10 block w-full py-3.5 px-6 rounded-2xl text-center text-sm font-bold transition-all duration-200 cursor-pointer">
               {{ plan.id === 'FREE' ? 'Tu Plan Actual' : 'Seleccionar ' + plan.name }}
             </button>
@@ -146,7 +146,7 @@
             </div>
 
             <button (click)="selectPlan(plan.id)"
-                    [ngClass]="plan.badge ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md' : 'bg-gray-800 hover:bg-gray-900 text-white'"
+                    [ngClass]="plan.badge ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md' : 'bg-gray-800 hover:bg-emerald-600 text-white'"
                     class="mt-8 block w-full py-3 px-4 rounded-xl text-center text-xs font-bold transition-all duration-200 cursor-pointer">
               Adquirir {{ plan.name }}
             </button>
