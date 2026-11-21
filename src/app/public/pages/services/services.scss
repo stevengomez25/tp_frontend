@@ -1,0 +1,20 @@
+@keyframes circuit-dash {
+  to {
+    stroke-dashoffset: -240;
+  }
+}
+
+.circuit-trace {
+  stroke-dasharray: 28 212;
+  animation: circuit-dash 4.5s linear infinite;
+}
+
+/* Ajuste sutil para que las piezas adyacentes en escritorio den sensación de encaje */
+@media (min-width: 1024px) {
+  .puzzle-card-right {
+    margin-left: -14px;
+  }
+  .puzzle-card-bottom {
+    margin-top: -14px;
+  }
+}
