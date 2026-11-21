@@ -35,6 +35,7 @@ declare var WidgetCheckout: any;
 })
 export class BillingService {
   private readonly API_URL = `${environment.apiUrl}/api/payments`;
+  router: any;
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object ) {}
 
@@ -82,12 +83,20 @@ export class BillingService {
     const checkout = new WidgetCheckout(checkoutConfig);
 
     checkout.open((result: any) => {
-      if (result && result.transaction) {
-        console.log(`Transacción finalizada en interfaz con estado: ${result.transaction.status}`);
-        // Redirección manual o lógica adicional si es requerida
-      } else {
-        console.log('El widget se cerró o devolvió un resultado vacío.');
-      }
-    });
+  const transaction = result?.transaction;
+  const reference = transaction?.reference || order.reference;
+  const status = transaction?.status;
+
+  console.log('Transacción finalizada en interfaz con estado:', status);
+
+  if (reference) {
+    localStorage.setItem('wompi_last_reference', reference);
+  }
+
+  // Redirección garantizada desde Angular al cerrar/finalizar el widget
+  this.router.navigate(['/order-confirmed'], {
+    queryParams: reference ? { reference } : {}
+  });
+});
   }
 }
