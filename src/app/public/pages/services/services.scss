@@ -1,20 +1,132 @@
-@keyframes circuit-dash {
-  to {
-    stroke-dashoffset: -240;
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+  color: #f8fafc;
+  background-color: #020617;
+}
+
+.services-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  width: 100%;
+  height: 4.5rem;
+  z-index: 10;
+  font-size: clamp(0.7rem, 1.4vw, 0.9rem);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.75) 0%, rgba(2, 6, 23, 0) 100%);
+}
+
+.cta-link {
+  color: #e0e7ff;
+  text-decoration: none;
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(129, 140, 248, 0.45);
+  background: rgba(79, 70, 229, 0.25);
+  letter-spacing: 0.08em;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background: rgba(79, 70, 229, 0.45);
+    border-color: rgba(165, 180, 252, 0.8);
   }
 }
 
-.circuit-trace {
-  stroke-dasharray: 28 212;
-  animation: circuit-dash 4.5s linear infinite;
+section.slide-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+
+  .outer,
+  .inner {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .bg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    padding: 5rem 1.5rem 2.5rem;
+  }
 }
 
-/* Ajuste sutil para que las piezas adyacentes en escritorio den sensación de encaje */
-@media (min-width: 1024px) {
-  .puzzle-card-right {
-    margin-left: -14px;
-  }
-  .puzzle-card-bottom {
-    margin-top: -14px;
-  }
+.slide-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.service-badge {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c7d2fe;
+  background: rgba(99, 102, 241, 0.2);
+  border: 1px solid rgba(129, 140, 248, 0.35);
+}
+
+.section-heading {
+  margin: 0;
+  font-size: clamp(1.85rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.12;
+  color: #ffffff;
+  will-change: transform, opacity;
+}
+
+.service-copy {
+  max-width: 640px;
+  will-change: transform, opacity;
+}
+
+.service-description {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+  line-height: 1.65;
+  color: #e2e8f0;
+}
+
+.service-footer {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #a5b4fc;
 }

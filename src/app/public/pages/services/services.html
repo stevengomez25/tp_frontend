@@ -1,253 +1,31 @@
-<section class="min-h-screen bg-slate-950 text-slate-100 py-16 px-4 sm:px-6 lg:px-8 overflow-x-hidden">
-  <div class="max-w-7xl mx-auto">
+<div #hostContainer class="services-stage">
+  <header class="top-bar">
+    <div class="brand">TempMail Pro · Servicios</div>
+    <nav class="nav-actions">
+      <a routerLink="/billing" class="cta-link">Ver planes</a>
+    </nav>
+  </header>
 
-    <!-- Encabezado -->
-    <div appScrollAnimate class="text-center max-w-3xl mx-auto mb-16">
-      <span class="inline-block px-3.5 py-1 text-xs font-semibold tracking-wider uppercase rounded-full bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 mb-4">
-        Servicios y Capacidades
-      </span>
-      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-        Potencia tu gestión de correos con <span class="text-indigo-400">IA y automatización</span>
-      </h1>
-      <p class="mt-4 text-base sm:text-lg text-slate-400">
-        Soluciones diseñadas para equipos y empresas que buscan velocidad, precisión y control en sus comunicaciones.
-      </p>
-    </div>
-
-    <!-- Grid de Servicios (estilo rompecabezas + circuito) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-4">
-
-      <!-- 1. Plantillas personalizadas -->
-      <article appScrollAnimate class="relative group bg-slate-900/85 rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-lg overflow-hidden">
-        <svg class="pointer-events-none absolute inset-0 w-full h-full" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
-          <path
-            d="M 16 12 L 384 12 Q 388 12 388 16 L 388 122 Q 372 122 372 140 Q 372 158 388 158 L 388 264 Q 388 268 384 268 L 16 268 Q 12 268 12 264 L 12 16 Q 12 12 16 12 Z"
-            fill="none"
-            stroke="rgb(51 65 85 / 0.6)"
-            stroke-width="2"
-            vector-effect="non-scaling-stroke"
-          />
-          <path
-            d="M 16 12 L 384 12 Q 388 12 388 16 L 388 122 Q 372 122 372 140 Q 372 158 388 158 L 388 264 Q 388 268 384 268 L 16 268 Q 12 268 12 264 L 12 16 Q 12 12 16 12 Z"
-            fill="none"
-            stroke="rgb(129 140 248)"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            class="circuit-trace"
-            vector-effect="non-scaling-stroke"
-          />
-        </svg>
-
-        <div class="relative z-10">
-          <div class="w-11 h-11 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center font-bold text-lg mb-5">
-            01
+  <section
+    *ngFor="let service of services; let i = index"
+    class="slide-section"
+  >
+    <div class="outer">
+      <div class="inner">
+        <div
+          class="bg"
+          [style.backgroundImage]="service.accentGradient"
+        >
+          <div class="slide-content">
+            <span class="service-badge">{{ service.badge }}</span>
+            <h2 class="section-heading">{{ service.title }}</h2>
+            <div class="service-copy">
+              <p class="service-description">{{ service.description }}</p>
+              <span class="service-footer">{{ service.footerNote }}</span>
+            </div>
           </div>
-          <h2 class="text-xl font-bold text-white mb-2">Plantillas personalizadas</h2>
-          <p class="text-sm text-slate-300 leading-relaxed">
-            Crea y organiza plantillas a medida para tus flujos recurrentes, manteniendo consistencia de marca y ahorrando tiempo en cada envío.
-          </p>
         </div>
-        <div class="relative z-10 mt-6 pt-4 border-t border-slate-800/80 text-xs text-indigo-300 font-medium">
-          Listo para uso diario y equipos
-        </div>
-      </article>
-
-      <!-- 2. Base de datos conectada con IA + Chrome Extension -->
-      <article appScrollAnimate class="relative group bg-slate-900/85 rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-lg overflow-hidden puzzle-card-right">
-        <svg class="pointer-events-none absolute inset-0 w-full h-full" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
-          <path
-            d="M 16 12 L 384 12 Q 388 12 388 16 L 388 264 Q 388 268 384 268 L 16 268 Q 12 268 12 264 L 12 158 Q 28 158 28 140 Q 28 122 12 122 L 12 16 Q 12 12 16 12 Z"
-            fill="none"
-            stroke="rgb(51 65 85 / 0.6)"
-            stroke-width="2"
-            vector-effect="non-scaling-stroke"
-          />
-          <path
-            d="M 16 12 L 384 12 Q 388 12 388 16 L 388 264 Q 388 268 384 268 L 16 268 Q 12 268 12 264 L 12 158 Q 28 158 28 140 Q 28 122 12 122 L 12 16 Q 12 12 16 12 Z"
-            fill="none"
-            stroke="rgb(56 189 248)"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            class="circuit-trace"
-            vector-effect="non-scaling-stroke"
-          />
-        </svg>
-
-        <div class="relative z-10">
-          <div class="w-11 h-11 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center font-bold text-lg mb-5">
-            02
-          </div>
-          <h2 class="text-xl font-bold text-white mb-2">Base de datos con IA y extensión Chrome</h2>
-          <p class="text-sm text-slate-300 leading-relaxed">
-            Administración de base de datos conectada con IA para analizar correos mediante manipulación del DOM directamente desde una extensión de Chrome.
-          </p>
-        </div>
-        <div class="relative z-10 mt-6 pt-4 border-t border-slate-800/80 text-xs text-indigo-300 font-medium">
-          Análisis contextual en tiempo real
-        </div>
-      </article>
-
-      <!-- 3. IA Enhanced -->
-      <article appScrollAnimate class="relative group bg-slate-900/85 rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-lg overflow-hidden puzzle-card-right">
-        <svg class="pointer-events-none absolute inset-0 w-full h-full" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
-          <path
-            d="M 16 12 L 384 12 Q 388 12 388 16 L 388 264 Q 388 268 384 268 L 16 268 Q 12 268 12 264 L 12 158 Q 28 158 28 140 Q 28 122 12 122 L 12 16 Q 12 12 16 12 Z"
-            fill="none"
-            stroke="rgb(51 65 85 / 0.6)"
-            stroke-width="2"
-            vector-effect="non-scaling-stroke"
-          />
-          <path
-            d="M 16 12 L 384 12 Q 388 12 388 16 L 388 264 Q 388 268 384 268 L 16 268 Q 12 268 12 264 L 12 158 Q 28 158 28 140 Q 28 122 12 122 L 12 16 Q 12 12 16 12 Z"
-            fill="none"
-            stroke="rgb(129 140 248)"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            class="circuit-trace"
-            vector-effect="non-scaling-stroke"
-          />
-        </svg>
-
-        <div class="relative z-10">
-          <div class="w-11 h-11 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center font-bold text-lg mb-5">
-            03
-          </div>
-          <h2 class="text-xl font-bold text-white mb-2">IA Enhanced</h2>
-          <p class="text-sm text-slate-300 leading-relaxed">
-            Obtén sugerencias de mejora para tus plantillas, con revisión de coherencia, cohesión y profesionalismo antes de enviar.
-          </p>
-        </div>
-        <div class="relative z-10 mt-6 pt-4 border-t border-slate-800/80 text-xs text-indigo-300 font-medium">
-          Redacción clara y profesional
-        </div>
-      </article>
-
-      <!-- 4. Acompañamiento técnico profesional -->
-      <article appScrollAnimate class="relative group bg-slate-900/85 rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-lg overflow-hidden puzzle-card-bottom">
-        <svg class="pointer-events-none absolute inset-0 w-full h-full" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
-          <path
-            d="M 16 12 L 182 12 Q 182 28 200 28 Q 218 28 218 12 L 384 12 Q 388 12 388 16 L 388 264 Q 388 268 384 268 L 16 268 Q 12 268 12 264 L 12 16 Q 12 12 16 12 Z"
-            fill="none"
-            stroke="rgb(51 65 85 / 0.6)"
-            stroke-width="2"
-            vector-effect="non-scaling-stroke"
-          />
-          <path
-            d="M 16 12 L 182 12 Q 182 28 200 28 Q 218 28 218 12 L 384 12 Q 388 12 388 16 L 388 264 Q 388 268 384 268 L 16 268 Q 12 268 12 264 L 12 16 Q 12 12 16 12 Z"
-            fill="none"
-            stroke="rgb(56 189 248)"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            class="circuit-trace"
-            vector-effect="non-scaling-stroke"
-          />
-        </svg>
-
-        <div class="relative z-10">
-          <div class="w-11 h-11 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center font-bold text-lg mb-5">
-            04
-          </div>
-          <h2 class="text-xl font-bold text-white mb-2">Acompañamiento técnico (2 horas)</h2>
-          <p class="text-sm text-slate-300 leading-relaxed">
-            Acompañamiento técnico profesional en las próximas 2 horas para revisar detalles, detectar fallos e identificar áreas de mejora.
-          </p>
-        </div>
-        <div class="relative z-10 mt-6 pt-4 border-t border-slate-800/80 text-xs text-indigo-300 font-medium">
-          Revisión ágil y soporte directo
-        </div>
-      </article>
-
-      <!-- 5. Periodo de prueba de 30 días -->
-      <article appScrollAnimate class="relative group bg-slate-900/85 rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-lg overflow-hidden puzzle-card-right puzzle-card-bottom">
-        <svg class="pointer-events-none absolute inset-0 w-full h-full" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
-          <path
-            d="M 16 12 L 384 12 Q 388 12 388 16 L 388 264 Q 388 268 384 268 L 16 268 Q 12 268 12 264 L 12 158 Q 28 158 28 140 Q 28 122 12 122 L 12 16 Q 12 12 16 12 Z"
-            fill="none"
-            stroke="rgb(51 65 85 / 0.6)"
-            stroke-width="2"
-            vector-effect="non-scaling-stroke"
-          />
-          <path
-            d="M 16 12 L 384 12 Q 388 12 388 16 L 388 264 Q 388 268 384 268 L 16 268 Q 12 268 12 264 L 12 158 Q 28 158 28 140 Q 28 122 12 122 L 12 16 Q 12 12 16 12 Z"
-            fill="none"
-            stroke="rgb(251 191 36)"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            class="circuit-trace"
-            vector-effect="non-scaling-stroke"
-          />
-        </svg>
-
-        <div class="relative z-10">
-          <div class="w-11 h-11 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center font-bold text-lg mb-5">
-            05
-          </div>
-          <h2 class="text-xl font-bold text-white mb-2">Periodo de prueba de 30 días</h2>
-          <p class="text-sm text-slate-300 leading-relaxed">
-            Prueba la plataforma durante 30 días para validar su flujo de trabajo en tu operación, sujeto a términos y condiciones.
-          </p>
-        </div>
-        <div class="relative z-10 mt-6 pt-4 border-t border-slate-800/80 text-xs text-amber-300 font-medium">
-          Aplica términos y condiciones
-        </div>
-      </article>
-
-      <!-- 6. Automatización de comunicaciones -->
-      <article appScrollAnimate class="relative group bg-linear-to-br from-indigo-950/75 to-slate-900 rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-lg overflow-hidden puzzle-card-right puzzle-card-bottom">
-        <svg class="pointer-events-none absolute inset-0 w-full h-full" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
-          <path
-            d="M 16 12 L 384 12 Q 388 12 388 16 L 388 264 Q 388 268 384 268 L 16 268 Q 12 268 12 264 L 12 158 Q 28 158 28 140 Q 28 122 12 122 L 12 16 Q 12 12 16 12 Z"
-            fill="none"
-            stroke="rgb(99 102 241 / 0.35)"
-            stroke-width="2"
-            vector-effect="non-scaling-stroke"
-          />
-          <path
-            d="M 16 12 L 384 12 Q 388 12 388 16 L 388 264 Q 388 268 384 268 L 16 268 Q 12 268 12 264 L 12 158 Q 28 158 28 140 Q 28 122 12 122 L 12 16 Q 12 12 16 12 Z"
-            fill="none"
-            stroke="rgb(165 180 252)"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            class="circuit-trace"
-            vector-effect="non-scaling-stroke"
-          />
-        </svg>
-
-        <div class="relative z-10">
-          <div class="flex items-center justify-between mb-5">
-            <span class="w-11 h-11 rounded-xl bg-indigo-500 text-white flex items-center justify-center font-bold text-lg">
-              06
-            </span>
-            <span class="text-[11px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300">
-              Planes superiores
-            </span>
-          </div>
-          <h2 class="text-xl font-bold text-white mb-2">Automatización de comunicaciones</h2>
-          <p class="text-sm text-slate-300 leading-relaxed">
-            Automatiza secuencias y respuestas de comunicación para escalar tu operación en los planes más costosos.
-          </p>
-        </div>
-        <div class="relative z-10 mt-6 pt-4 border-t border-indigo-500/20 text-xs text-indigo-300 font-medium">
-          Exclusivo en planes de mayor nivel
-        </div>
-      </article>
-
-    </div>
-
-    <!-- Llamado a la acción -->
-    <div appScrollAnimate class="mt-16 bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div>
-        <h3 class="text-xl sm:text-2xl font-bold text-white">¿Listo para comenzar tu prueba de 30 días?</h3>
-        <p class="mt-1 text-sm text-slate-400">
-          Elige el plan que mejor se adapte a tu equipo y activa tus herramientas.
-        </p>
-      </div>
-      <div class="flex flex-wrap gap-3 w-full md:w-auto justify-start md:justify-end">
-        <a routerLink="/billing" class="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 hover:cursor-pointer text-white text-sm font-semibold transition-colors">
-          Ver planes y facturación
-        </a>
       </div>
     </div>
-
-  </div>
-</section>
+  </section>
+</div>
