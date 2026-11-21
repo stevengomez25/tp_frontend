@@ -80,7 +80,7 @@
     "logout": "Sign Out",
     "links": [
       { "name": "Home", "path": "/" },
-      { "name": "Services", "path": "/servicios" },
+      { "name": "Services", "path": "/services" },
       { "name": "Pricing", "path": "/billing" },
       { "name": "Support", "path": "/soporte" }
     ]

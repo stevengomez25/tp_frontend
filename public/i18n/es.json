@@ -80,7 +80,7 @@
     "logout": "Cerrar Sesión",
     "links": [
       { "name": "Inicio", "path": "/" },
-      { "name": "Servicios", "path": "/servicios" },
+      { "name": "Servicios", "path": "/services" },
       { "name": "Planes", "path": "/billing" },
       { "name": "Soporte", "path": "/soporte" }
     ]
