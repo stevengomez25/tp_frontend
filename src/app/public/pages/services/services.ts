@@ -29,7 +29,7 @@ interface ServiceSlide {
 })
 export class Services implements AfterViewInit, OnDestroy {
   @ViewChild('hostContainer', { static: true }) hostContainer!: ElementRef<HTMLElement>;
-
+  showAfterShowcase = false;
   services: ServiceSlide[] = [
     {
       badge: '01 · Plantillas',
@@ -114,12 +114,14 @@ export class Services implements AfterViewInit, OnDestroy {
       let currentIndex = -1;
       let animating = false;
       let releasedToNativeScroll = false;
+      
 
       gsap.set(outerWrappers, { yPercent: 100 });
       gsap.set(innerWrappers, { yPercent: -100 });
 
       const releaseScrollToPage = () => {
         releasedToNativeScroll = true;
+        this.showAfterShowcase = true;
         this.observer?.disable();
         // Si tienes un bloque debajo (como un footer o CTA en el flujo normal), desplázate hacia él
         const belowBlock = root.querySelector('.after-showcase') as HTMLElement | null;
@@ -211,6 +213,7 @@ export class Services implements AfterViewInit, OnDestroy {
         onDown: () => {
           if (releasedToNativeScroll && window.scrollY <= 10) {
             releasedToNativeScroll = false;
+            this.showAfterShowcase = false;
             this.observer?.enable();
           }
           if (!animating && !releasedToNativeScroll) {
