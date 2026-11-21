@@ -1,8 +1,7 @@
 :host {
   display: block;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   user-select: none;
   color: #f8fafc;
   background-color: #020617;
@@ -11,8 +10,7 @@
 .services-stage {
   position: relative;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100vh;
 }
 
 .top-bar {
