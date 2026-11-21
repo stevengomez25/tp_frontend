@@ -1,8 +1,9 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 
 export interface CheckoutRequest {
   targetPlan: string;
@@ -35,7 +36,7 @@ declare var WidgetCheckout: any;
 })
 export class BillingService {
   private readonly API_URL = `${environment.apiUrl}/api/payments`;
-  router: any;
+  private router = inject(Router);
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object ) {}
 
