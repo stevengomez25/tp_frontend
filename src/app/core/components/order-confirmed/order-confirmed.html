@@ -50,7 +50,7 @@
           <div class="flex justify-between text-sm">
             <span class="text-gray-500">Plan Adquirido</span>
             <span class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 uppercase">
-              {{ orderSummary.targetPlan.replace('_', ' ') }}
+              {{ (orderSummary.targetPlan || '').replace('_', ' ') }}
             </span>
           </div>
           <div class="flex justify-between text-sm">

@@ -1,4 +1,4 @@
-import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BillingService, OrderSummary } from '../../services/billing';
@@ -21,6 +21,7 @@ export class OrderConfirmedComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private billingService: BillingService,
+    private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -49,15 +50,18 @@ export class OrderConfirmedComponent implements OnInit {
    * Consulta al Backend el estado real de la transacción usando la referencia única
    */
   private loadSummary(reference: string): void {
+    this.cdr.detectChanges();
     this.billingService.getOrderSummary(reference).subscribe({
       next: (summary) => {
         this.orderSummary = summary;
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error obteniendo el resumen de orden:', err);
         this.loading = false;
         this.error = true;
+        this.cdr.detectChanges();
       }
     });
   }
