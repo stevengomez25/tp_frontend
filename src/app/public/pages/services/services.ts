@@ -47,7 +47,7 @@ export class Services implements AfterViewInit, OnDestroy {
         'Administración de base de datos conectada con IA para analizar correos mediante manipulación del DOM directamente desde una extensión de Chrome.',
       footerNote: 'Análisis contextual en tiempo real',
       accentGradient:
-        'linear-gradient(180deg, rgba(15, 23, 42, 0.78) 0%, rgba(12, 74, 110, 0.88) 100%)',
+        `url('bg2.png')`,
     },
     {
       badge: '03 · IA Enhanced',
