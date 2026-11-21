@@ -38,7 +38,7 @@ export class Services implements AfterViewInit, OnDestroy {
         'Diseña y organiza plantillas a medida para tus flujos recurrentes, manteniendo coherencia visual y agilizando cada envío.',
       footerNote: 'Listo para uso diario y equipos',
       accentGradient:
-        'bg1.png',
+        `url('bg1.png')`,
     },
     {
       badge: '02 · IA + Extensión Chrome',
