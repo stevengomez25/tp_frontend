@@ -56,7 +56,7 @@ export class Services implements AfterViewInit, OnDestroy {
         'Recibe sugerencias de mejora para tus plantillas con revisión de coherencia, cohesión y profesionalismo antes de enviar.',
       footerNote: 'Redacción clara y profesional',
       accentGradient:
-        'linear-gradient(180deg, rgba(15, 23, 42, 0.78) 0%, rgba(49, 46, 129, 0.88) 100%)',
+        `url('bg3.png')`,
     },
     {
       badge: '04 · Soporte directo',
@@ -65,7 +65,7 @@ export class Services implements AfterViewInit, OnDestroy {
         'Acompañamiento técnico profesional en las próximas 2 horas para revisar detalles, detectar fallos e identificar áreas de mejora.',
       footerNote: 'Revisión ágil y especializada',
       accentGradient:
-        'linear-gradient(180deg, rgba(15, 23, 42, 0.78) 0%, rgba(19, 78, 74, 0.88) 100%)',
+        `url('bg4.jpg')`,
     },
     {
       badge: '05 · Prueba gratuita',
@@ -74,7 +74,7 @@ export class Services implements AfterViewInit, OnDestroy {
         'Evalúa la plataforma durante 30 días para validar su funcionamiento en tu operación, aplicando términos y condiciones.',
       footerNote: 'Aplica términos y condiciones',
       accentGradient:
-        'linear-gradient(180deg, rgba(15, 23, 42, 0.78) 0%, rgba(120, 53, 15, 0.88) 100%)',
+        `url('bg5.png')`,
     },
     {
       badge: '06 · Planes superiores',
@@ -83,7 +83,7 @@ export class Services implements AfterViewInit, OnDestroy {
         'Automatiza flujos y respuestas de comunicación para escalar tu operación en los planes más costosos.',
       footerNote: 'Exclusivo en planes de mayor nivel',
       accentGradient:
-        'linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(67, 56, 202, 0.9) 100%)',
+        `url('bg6.png')`,
     },
   ];
 
