@@ -13,12 +13,14 @@ import { FoldersComponent } from './public/pages/folders/folders';
 import { UseTemplateComponent } from './public/pages/use-template/use-template';
 import { GettingStartedComponent } from './public/pages/getting-started/getting-started';
 import { Services } from './public/pages/services/services';
+import { Support } from './public/pages/support/support';
 
 export const routes: Routes = [
   { path: '', component: Home },
   {path:'login',component: LoginComponent},
   {path:'signup',component:SignupComponent},
   {path:'services',component: Services},
+  {path:'support',component: Support},
   {path:'getting-started', component:GettingStartedComponent, canActivate:[authGuard]},
   {path:'dashboard', component:DashboardComponent, canActivate: [authGuard]},
   {path:'my-templates', component:MyTemplatesComponent, canActivate: [authGuard]},

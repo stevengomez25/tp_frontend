@@ -65,7 +65,7 @@ export class Services implements AfterViewInit, OnDestroy {
         'Acompañamiento técnico profesional en las próximas 2 horas para revisar detalles, detectar fallos e identificar áreas de mejora.',
       footerNote: 'Revisión ágil y especializada',
       accentGradient:
-        `url('bg4.jpg')`,
+        `url('bg4.png')`,
     },
     {
       badge: '05 · Prueba gratuita',

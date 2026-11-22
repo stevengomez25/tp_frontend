@@ -82,7 +82,7 @@
       { "name": "Home", "path": "/" },
       { "name": "Services", "path": "/services" },
       { "name": "Pricing", "path": "/billing" },
-      { "name": "Support", "path": "/soporte" }
+      { "name": "Support", "path": "/support" }
     ]
   },
   "footer": {
