@@ -1,44 +1,44 @@
-<div class="flex min-h-screen bg-slate-50">
-    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col sticky top-0 h-screen">
-        <div class="p-6 border-b border-slate-100">
-            <div class="flex items-center gap-3">
-                <img src="slogan.png" alt="Logo" class="w-40 h-25">
+<div class="flex flex-col md:flex-row min-h-screen bg-slate-50">
+    <aside class="w-full md:w-64 bg-white border-b md:border-b-0 md:border-r border-slate-200 flex flex-col md:sticky md:top-0 md:h-screen shrink-0">
+        <div class="p-4 sm:p-6 border-b border-slate-100">
+            <div class="flex items-center justify-center md:justify-start gap-3">
+                <img src="slogan.png" alt="Logo" class="w-32 sm:w-40 h-auto max-h-20 sm:max-h-25 object-contain">
             </div>
         </div>
-        <nav class="flex-1 p-4 space-y-2">
+        <nav class="flex md:flex-col items-center md:items-stretch overflow-x-auto md:overflow-x-visible flex-1 p-2 sm:p-4 gap-1.5 sm:gap-2 sm:space-y-0 md:space-y-2">
             <a routerLink="/dashboard"
-                class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition-all">
+                class="flex items-center shrink-0 gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition-all whitespace-nowrap">
                 <i class="fa-solid fa-house"></i> {{ 'dashboard.menu.home' | transloco }}
             </a>
             <a routerLink="/my-templates"
-                class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-blue-600 bg-blue-50 rounded-xl">
+                class="flex items-center shrink-0 gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-bold text-blue-600 bg-blue-50 rounded-xl whitespace-nowrap">
                 <i class="fa-solid fa-file-lines"></i> {{ 'dashboard.menu.templates' | transloco }}
             </a>
         </nav>
     </aside>
 
-    <main class="flex-1 p-8">
-        <header class="flex justify-between items-center mb-8">
-            <div>
-                <h1 class="text-2xl font-black text-slate-900 tracking-tight">{{ 'editor.title' | transloco }}</h1>
+    <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8">
+        <header class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8">
+            <div class="min-w-0">
+                <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">{{ 'editor.title' | transloco }}</h1>
                 <nav class="flex text-xs text-slate-400 gap-2 mt-1">
                     <span>{{ 'dashboard.menu.templates' | transloco }}</span> / <span>{{ 'editor.new' | transloco }}</span>
                 </nav>
             </div>
-            <div class="flex gap-3">
+            <div class="flex flex-wrap sm:flex-nowrap gap-2 sm:gap-3 shrink-0">
                 <button routerLink="/my-templates"
-                    class="px-6 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-200 rounded-xl transition-all">
+                    class="flex-1 sm:flex-initial px-4 sm:px-6 py-2.5 text-xs sm:text-sm font-bold text-slate-600 hover:bg-slate-200 rounded-xl transition-all">
                     {{ 'editor.btn_cancel' | transloco }}
                 </button>
                 <button (click)="saveTemplate()"
-                    class="px-6 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-95">
+                    class="flex-1 sm:flex-initial px-4 sm:px-6 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-95">
                     {{ 'editor.btn_save' | transloco }}
                 </button>
             </div>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+            <div class="space-y-4 sm:space-y-6">
                 
                 <div class="flex flex-col gap-1">
                     <label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Carpeta Organizacional</label>
@@ -75,14 +75,14 @@
                 </div>
 
                 <button (click)="saveTemplate()" [disabled]="isSaving"
-                    class="w-full bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all shadow-md disabled:opacity-50 flex justify-center items-center gap-2">
+                    class="w-full bg-blue-600 text-white px-4 sm:px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm hover:bg-blue-700 transition-all shadow-md disabled:opacity-50 flex justify-center items-center gap-2">
                     <i class="fa-solid fa-save" *ngIf="!isSaving"></i>
                     {{ isSaving ? 'Guardando...' : 'Guardar Plantilla' }}
                 </button>
 
-                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
                     <div class="flex justify-between items-center border-b border-slate-50 pb-3">
-                        <h3 class="font-bold text-slate-900">{{ 'editor.dynamic_fields' | transloco }}</h3>
+                        <h3 class="font-bold text-sm sm:text-base text-slate-900">{{ 'editor.dynamic_fields' | transloco }}</h3>
                         <button (click)="updateDynamicFields()"
                             class="text-blue-600 text-[10px] font-bold uppercase hover:underline">
                             <i class="fa-solid fa-sync-alt mr-1"></i>
@@ -113,32 +113,32 @@
                 </div>
             </div>
 
-            <div class="lg:col-span-2 space-y-4">
-                <div class="bg-white p-2 rounded-xl border border-slate-200 shadow-sm flex flex-wrap gap-1 items-center sticky top-4 z-10">
+            <div class="lg:col-span-2 min-w-0 space-y-4">
+                <div class="bg-white p-2 rounded-xl border border-slate-200 shadow-sm flex flex-wrap gap-1.5 sm:gap-1 items-center sticky top-2 md:top-4 z-10">
                     <div class="flex bg-slate-50 rounded-lg p-1 gap-1">
-                        <button (click)="execCommand('bold')" class="p-2 w-10 h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all active:scale-90" title="Bold"><i class="fa-solid fa-bold"></i></button>
-                        <button (click)="execCommand('italic')" class="p-2 w-10 h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all active:scale-90" title="Italic"><i class="fa-solid fa-italic"></i></button>
-                        <button (click)="execCommand('underline')" class="p-2 w-10 h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all active:scale-90" title="Underline"><i class="fa-solid fa-underline"></i></button>
+                        <button (click)="execCommand('bold')" class="p-2 w-8 h-8 sm:w-10 sm:h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all active:scale-90" title="Bold"><i class="fa-solid fa-bold"></i></button>
+                        <button (click)="execCommand('italic')" class="p-2 w-8 h-8 sm:w-10 sm:h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all active:scale-90" title="Italic"><i class="fa-solid fa-italic"></i></button>
+                        <button (click)="execCommand('underline')" class="p-2 w-8 h-8 sm:w-10 sm:h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all active:scale-90" title="Underline"><i class="fa-solid fa-underline"></i></button>
                     </div>
 
-                    <div class="w-px h-6 bg-slate-200 mx-1"></div>
+                    <div class="hidden sm:block w-px h-6 bg-slate-200 mx-1"></div>
 
                     <div class="flex bg-slate-50 rounded-lg p-1 gap-1">
-                        <button (click)="execCommand('justifyLeft')" class="p-2 w-10 h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all"><i class="fa-solid fa-align-left"></i></button>
-                        <button (click)="execCommand('justifyCenter')" class="p-2 w-10 h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all"><i class="fa-solid fa-align-center"></i></button>
+                        <button (click)="execCommand('justifyLeft')" class="p-2 w-8 h-8 sm:w-10 sm:h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all"><i class="fa-solid fa-align-left"></i></button>
+                        <button (click)="execCommand('justifyCenter')" class="p-2 w-8 h-8 sm:w-10 sm:h-10 hover:bg-white hover:shadow-sm rounded-md text-slate-700 transition-all"><i class="fa-solid fa-align-center"></i></button>
                     </div>
 
-                    <div class="w-px h-6 bg-slate-200 mx-1"></div>
+                    <div class="hidden sm:block w-px h-6 bg-slate-200 mx-1"></div>
 
                     <div class="relative">
                         <select (change)="execCommand('fontSize', $any($event.target).value)"
-                            class="appearance-none bg-slate-100 border border-slate-200 text-slate-900 font-bold text-[11px] rounded-lg pl-3 pr-8 py-2 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
+                            class="appearance-none bg-slate-100 border border-slate-200 text-slate-900 font-bold text-[11px] rounded-lg pl-2.5 sm:pl-3 pr-7 sm:pr-8 py-1.5 sm:py-2 outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
                             <option value="3" class="text-slate-900 bg-white">Normal</option>
                             <option value="1" class="text-slate-900 bg-white">Small</option>
                             <option value="5" class="text-slate-900 bg-white">Large</option>
                             <option value="7" class="text-slate-900 bg-white">Extra Large</option>
                         </select>
-                        <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 pointer-events-none"></i>
+                        <i class="fa-solid fa-chevron-down absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-500 pointer-events-none"></i>
                     </div>
 
                     <div class="flex items-center bg-slate-50 rounded-lg px-2 py-1 gap-2 border border-slate-100">
@@ -147,24 +147,24 @@
                             class="w-6 h-6 p-0 border border-white rounded-full bg-transparent cursor-pointer overflow-hidden shadow-sm">
                     </div>
 
-                    <div class="w-px h-6 bg-slate-200 mx-1"></div>
+                    <div class="hidden sm:block w-px h-6 bg-slate-200 mx-1"></div>
 
-                    <button (click)="execCommand('insertUnorderedList')" class="p-2 w-10 h-10 hover:bg-slate-100 rounded-lg text-slate-700 transition-colors" title="List">
+                    <button (click)="execCommand('insertUnorderedList')" class="p-2 w-8 h-8 sm:w-10 sm:h-10 hover:bg-slate-100 rounded-lg text-slate-700 transition-colors" title="List">
                         <i class="fa-solid fa-list-ul"></i>
                     </button>
-                    <button (click)="execCommand('createLink', 'https://')" class="p-2 w-10 h-10 hover:bg-slate-100 rounded-lg text-slate-700 transition-colors" title="Link">
+                    <button (click)="execCommand('createLink', 'https://')" class="p-2 w-8 h-8 sm:w-10 sm:h-10 hover:bg-slate-100 rounded-lg text-slate-700 transition-colors" title="Link">
                         <i class="fa-solid fa-link"></i>
                     </button>
 
-                    <div class="w-px h-6 bg-slate-200 mx-1 grow"></div>
+                    <div class="hidden lg:block w-px h-6 bg-slate-200 mx-1 grow"></div>
                     <button (mousedown)="$event.preventDefault(); openVariableModal()"
-                        class="px-3 h-10 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-xs font-bold flex items-center gap-2 transition-all border border-blue-200">
+                        class="w-full sm:w-auto px-3 h-9 sm:h-10 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-all border border-blue-200">
                         <i class="fa-solid fa-plus-circle"></i> {{ 'editor.add_field' | transloco }}
                     </button>
                 </div>
 
                 <div id="editor" contenteditable="true" (input)="updateDynamicFields()"
-                    class="bg-white min-h-100 p-10 rounded-2xl border border-slate-200 shadow-inner focus:outline-none prose prose-slate max-w-none text-slate-800 ring-offset-2 focus:ring-2 focus:ring-blue-100 transition-all overflow-y-auto"
+                    class="bg-white min-h-72 sm:min-h-100 p-4 sm:p-8 lg:p-10 rounded-2xl border border-slate-200 shadow-inner focus:outline-none prose prose-slate max-w-none text-slate-800 ring-offset-2 focus:ring-2 focus:ring-blue-100 transition-all overflow-y-auto"
                     [attr.placeholder]="'editor.placeholder_content' | transloco">
 
                     <p>Hola <span class="dynamic-chip" contenteditable="false" ngNonBindable>{{name}}</span>,</p>
@@ -176,23 +176,23 @@
 </div>
 
 @if (showVariableModal) {
-<div class="fixed inset-0 z-100 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+<div class="fixed inset-0 z-100 flex items-center justify-center p-3 sm:p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
     <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-slate-100 overflow-hidden animate-in zoom-in-95 duration-200">
-        <div class="p-6 border-b border-slate-50 flex justify-between items-center">
-            <h3 class="font-black text-slate-900 text-lg">Configurar Variable</h3>
+        <div class="p-4 sm:p-6 border-b border-slate-50 flex justify-between items-center">
+            <h3 class="font-black text-slate-900 text-base sm:text-lg">Configurar Variable</h3>
             <button (click)="showVariableModal = false" class="text-slate-400 hover:text-slate-600">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
 
-        <div class="p-8 space-y-6">
+        <div class="p-4 sm:p-8 space-y-5 sm:space-y-6">
             <div>
                 <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Nombre del campo</label>
                 <input type="text" [(ngModel)]="newVariable.name" placeholder="ej: nombre_cliente"
                     class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none font-bold">
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 block">Estilo</label>
                     <div class="flex gap-2">
@@ -226,13 +226,13 @@
             </div>
         </div>
 
-        <div class="p-6 bg-slate-50 flex gap-3">
+        <div class="p-4 sm:p-6 bg-slate-50 flex flex-col-reverse sm:flex-row gap-2 sm:gap-3">
             <button (click)="showVariableModal = false"
-                class="flex-1 py-3 text-sm font-bold text-slate-500 hover:bg-slate-200 rounded-xl transition-all">
+                class="flex-1 py-2.5 sm:py-3 text-sm font-bold text-slate-500 hover:bg-slate-200 rounded-xl transition-all">
                 Cancelar
             </button>
             <button (click)="confirmInsertion()"
-                class="flex-1 py-3 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg shadow-blue-200 transition-all">
+                class="flex-1 py-2.5 sm:py-3 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg shadow-blue-200 transition-all">
                 Insertar Variable
             </button>
         </div>

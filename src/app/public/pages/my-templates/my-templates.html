@@ -1,43 +1,43 @@
-<div class="flex min-h-screen bg-slate-50">
-  <aside class="w-64 bg-white border-r border-slate-200 flex flex-col sticky top-0 h-screen">
-    <div class="p-6 border-b border-slate-100">
-      <div class="flex items-center gap-3">
-        <img src="slogan.png" alt="Logo" class="w-40 h-25">
+<div class="flex flex-col md:flex-row min-h-screen bg-slate-50">
+  <aside class="w-full md:w-64 bg-white border-b md:border-b-0 md:border-r border-slate-200 flex flex-col md:sticky md:top-0 md:h-screen shrink-0">
+    <div class="p-4 sm:p-6 border-b border-slate-100">
+      <div class="flex items-center justify-center md:justify-start gap-3">
+        <img src="slogan.png" alt="Logo" class="w-32 sm:w-40 h-auto max-h-20 sm:max-h-25 object-contain">
       </div>
     </div>
-    <nav class="flex-1 p-4 space-y-2">
+    <nav class="flex md:flex-col items-center md:items-stretch overflow-x-auto md:overflow-x-visible flex-1 p-2 sm:p-4 gap-1.5 sm:gap-2 sm:space-y-0 md:space-y-2">
       <a routerLink="/dashboard"
-        class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition-all">
+        class="flex items-center shrink-0 gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition-all whitespace-nowrap">
         <i class="fa-solid fa-house"></i> {{ 'dashboard.menu.home' | transloco }}
       </a>
       <a routerLink="/my-templates"
-        class="flex items-center gap-3 px-4 py-3 text-sm font-bold text-blue-600 bg-blue-50 rounded-xl">
+        class="flex items-center shrink-0 gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-bold text-blue-600 bg-blue-50 rounded-xl whitespace-nowrap">
         <i class="fa-solid fa-file-lines"></i> {{ 'dashboard.menu.templates' | transloco }}
       </a>
       <a routerLink="/folders"
-        class="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition-all">
+        class="flex items-center shrink-0 gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition-all whitespace-nowrap">
         <i class="fa-solid fa-folder"></i> {{ 'dashboard.menu.folders' | transloco }}
       </a>
     </nav>
   </aside>
 
-  <main class="flex-1 p-8">
-    <header class="flex justify-between items-end mb-10">
-      <div>
-        <h1 class="text-3xl font-black text-slate-900 tracking-tight">{{ 'templates.title' | transloco }}</h1>
-        <p class="text-slate-500 text-sm">{{ 'templates.subtitle' | transloco }}</p>
+  <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8">
+    <header class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-6 sm:mb-8 lg:mb-10">
+      <div class="min-w-0">
+        <h1 class="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">{{ 'templates.title' | transloco }}</h1>
+        <p class="text-slate-500 text-xs sm:text-sm">{{ 'templates.subtitle' | transloco }}</p>
       </div>
 
-      <div class="flex gap-4 items-center">
-        <div class="relative">
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center w-full sm:w-auto">
+        <div class="relative w-full sm:w-auto">
           <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
           <input type="text" [(ngModel)]="searchTerm" [placeholder]="'templates.search_placeholder' | transloco"
-            class="bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none w-64 shadow-sm">
+            class="bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 outline-none w-full sm:w-64 shadow-sm">
         </div>
 
-        <div class="relative">
+        <div class="relative self-end sm:self-auto">
           <button (click)="toggleNewDropdown()"
-            class="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center gap-2 active:scale-95">
+            class="bg-blue-600 text-white px-4 sm:px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center justify-center gap-2 active:scale-95 whitespace-nowrap">
             {{ 'templates.btn_new' | transloco }} <i class="fa-solid fa-chevron-down text-[10px]"></i>
           </button>
 
@@ -60,61 +60,61 @@
     </header>
 
     @if (isLoading()) {
-    <div class="text-center py-20 text-slate-400 font-medium">
+    <div class="text-center py-12 sm:py-20 text-sm sm:text-base text-slate-400 font-medium">
       <i class="fa-solid fa-circle-notch fa-spin mr-2"></i> {{"templates.loading" | transloco}}
     </div>
     } @else {
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10" *ngIf="backendStats()">
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8 lg:mb-10" *ngIf="backendStats()">
+      <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex items-center justify-between mb-2">
-          <div class="w-10 h-10 rounded-lg flex items-center justify-center bg-slate-50 text-blue-600">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center bg-slate-50 text-blue-600">
             <i class="fa-solid fa-file-lines"></i>
           </div>
         </div>
-        <p class="text-2xl font-black text-slate-900">{{ backendStats()?.totalTemplates }}</p>
-        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">{{ 'templates.stats.total' | transloco
+        <p class="text-xl sm:text-2xl font-black text-slate-900">{{ backendStats()?.totalTemplates }}</p>
+        <p class="text-[11px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">{{ 'templates.stats.total' | transloco
           }}</p>
       </div>
 
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+      <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex items-center justify-between mb-2">
-          <div class="w-10 h-10 rounded-lg flex items-center justify-center bg-slate-50 text-indigo-600">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center bg-slate-50 text-indigo-600">
             <i class="fa-solid fa-folder"></i>
           </div>
         </div>
-        <p class="text-2xl font-black text-slate-900">{{ backendStats()?.totalFolders }}</p>
-        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">{{ 'templates.stats.folders' |
+        <p class="text-xl sm:text-2xl font-black text-slate-900">{{ backendStats()?.totalFolders }}</p>
+        <p class="text-[11px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">{{ 'templates.stats.folders' |
           transloco }}</p>
       </div>
 
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+      <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div class="flex items-center justify-between mb-2">
-          <div class="w-10 h-10 rounded-lg flex items-center justify-center bg-slate-50 text-emerald-500">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center bg-slate-50 text-emerald-500">
             <i class="fa-solid fa-database"></i>
           </div>
         </div>
-        <p class="text-2xl font-black text-slate-900">{{ backendStats()?.slotsUsagePercentage }}%</p>
-        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">{{ 'templates.stats.slots' | transloco
+        <p class="text-xl sm:text-2xl font-black text-slate-900">{{ backendStats()?.slotsUsagePercentage }}%</p>
+        <p class="text-[11px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">{{ 'templates.stats.slots' | transloco
           }}</p>
       </div>
     </div>
 
-    <div class="space-y-4">
+    <div class="space-y-3 sm:space-y-4">
       @for (folder of folders(); track folder.id) {
 
       <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <button (click)="toggleFolder(folder)"
-          class="w-full px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
-          <div class="flex items-center gap-4">
-            <i class="fa-solid text-xl"
+          class="w-full px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-2 hover:bg-slate-50 transition-colors">
+          <div class="flex items-center gap-2.5 sm:gap-4 min-w-0">
+            <i class="fa-solid text-lg sm:text-xl shrink-0"
               [ngClass]="folder.open ? 'fa-folder-open text-indigo-500' : 'fa-folder text-indigo-600'"></i>
-            <span class="font-bold text-slate-800">{{ folder.name }}</span>
-            <span class="bg-slate-100 text-slate-500 text-[10px] px-2 py-0.5 rounded-full">
+            <span class="font-bold text-sm sm:text-base text-slate-800 truncate">{{ folder.name }}</span>
+            <span class="bg-slate-100 text-slate-500 text-[10px] px-2 py-0.5 rounded-full shrink-0">
               {{ folder.templates.length || 0 }} items
             </span>
           </div>
-          <i class="fa-solid text-slate-400 transition-transform"
+          <i class="fa-solid text-slate-400 transition-transform shrink-0"
             [ngClass]="folder.open ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
         </button>
 
@@ -124,25 +124,25 @@
           @if (searchTerm === '' || template.title.toLowerCase().includes(searchTerm.toLowerCase())) {
 
           <div [routerLink]="['/use-template', template.id]"
-            class="px-10 py-4 flex items-center justify-between group hover:bg-blue-50/30 cursor-pointer transition-colors">
+            class="px-4 sm:px-6 lg:px-10 py-3.5 sm:py-4 flex items-center justify-between gap-2 sm:gap-4 group hover:bg-blue-50/30 cursor-pointer transition-colors">
 
-            <div class="flex items-center gap-4">
-              <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600">
+            <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+              <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
                 <i class="fa-solid fa-file-lines text-sm"></i>
               </div>
-              <div>
-                <p class="text-sm font-bold text-slate-700 group-hover:text-blue-600 transition-colors">{{
+              <div class="min-w-0">
+                <p class="text-xs sm:text-sm font-bold text-slate-700 group-hover:text-blue-600 transition-colors truncate">{{
                   template.title }}</p>
-                <p class="text-[11px] text-slate-400 italic">{{"templates.subject" | transloco}}: {{ template.subject }}</p>
+                <p class="text-[11px] text-slate-400 italic truncate">{{"templates.subject" | transloco}}: {{ template.subject }}</p>
               </div>
             </div>
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 sm:gap-4 shrink-0">
               <span class="text-[10px] font-black text-slate-400 border border-slate-200 px-1.5 rounded uppercase">{{
                 template.lang }}</span>
 
               <div class="relative">
                 <button (click)="toggleTemplateOptions($event, template.id)"
-                  class="opacity-0 group-hover:opacity-100 p-2 text-slate-400 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-all">
+                  class="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 p-1.5 sm:p-2 text-slate-400 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-all">
                   <i class="fa-solid fa-ellipsis-vertical"></i>
                 </button>
 
@@ -167,7 +167,7 @@
 
           }
           } @empty {
-          <div class="px-10 py-4 text-xs italic text-slate-400 bg-slate-50/50">
+          <div class="px-4 sm:px-6 lg:px-10 py-4 text-xs italic text-slate-400 bg-slate-50/50">
             No hay plantillas guardadas en esta carpeta.
           </div>
           }
@@ -176,7 +176,7 @@
       </div>
 
       } @empty {
-      <div class="p-12 text-center bg-white rounded-2xl border border-slate-200 text-slate-400 italic">
+      <div class="p-8 sm:p-12 text-center text-xs sm:text-sm bg-white rounded-2xl border border-slate-200 text-slate-400 italic">
         No se han encontrado carpetas de trabajo para tu equipo. ¡Crea una estructura para empezar!
       </div>
       }
