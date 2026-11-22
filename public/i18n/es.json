@@ -91,28 +91,28 @@
     "status": "Sistemas Operativos",
     "sections": [
       {
-        "title": "Producto",
+        "title": "Que ofrecemos",
         "links": [
-          { "name": "Funcionalidades", "path": "/servicios" },
-          { "name": "Planes y Precios", "path": "/planes" },
+          { "name": "Funcionalidades", "path": "/services" },
+          { "name": "Planes y Precios", "path": "/billing" },
           { "name": "Extensión Chrome", "path": "#" },
-          { "name": "Documentación", "path": "/docs" }
+          { "name": "Documentación", "path": "/support" }
         ]
       },
       {
-        "title": "Compañía",
+        "title": "TempMail Pro",
         "links": [
           { "name": "Sobre nosotros", "path": "#" },
-          { "name": "Soporte", "path": "/soporte" },
+          { "name": "Soporte", "path": "/support" },
           { "name": "Contacto", "path": "#" }
         ]
       },
       {
         "title": "Legal",
         "links": [
-          { "name": "Privacidad", "path": "#" },
-          { "name": "Términos", "path": "#" },
-          { "name": "Seguridad", "path": "#" }
+          { "name": "Privacidad", "path": "/privacy" },
+          { "name": "Términos", "path": "/terms" },
+          { "name": "Seguridad", "path": "/security" }
         ]
       }
     ]
