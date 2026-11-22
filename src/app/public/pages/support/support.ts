@@ -2,6 +2,7 @@ import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ScrollAnimateDirective } from '../../../shared/directives/scroll-animate';
 
 export interface DocStep {
   label: string;
@@ -22,7 +23,7 @@ export interface DocSection {
 @Component({
   selector: 'app-support',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, ScrollAnimateDirective],
   templateUrl: './support.html',
 })
 export class Support {
